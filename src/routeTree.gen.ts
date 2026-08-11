@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppleRouteImport } from './routes/apple'
+import { Route as ConditionsRouteImport } from './routes/conditions'
+import { Route as PlatformsRouteImport } from './routes/platforms'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppleRoute = AppleRouteImport.update({
+  id: '/apple',
+  path: '/apple',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConditionsRoute = ConditionsRouteImport.update({
+  id: '/conditions',
+  path: '/conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformsRoute = PlatformsRouteImport.update({
+  id: '/platforms',
+  path: '/platforms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/apple': typeof AppleRoute
+  '/conditions': typeof ConditionsRoute
+  '/platforms': typeof PlatformsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/apple': typeof AppleRoute
+  '/conditions': typeof ConditionsRoute
+  '/platforms': typeof PlatformsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/apple': typeof AppleRoute
+  '/conditions': typeof ConditionsRoute
+  '/platforms': typeof PlatformsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/apple' | '/conditions' | '/platforms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/apple' | '/conditions' | '/platforms'
+  id: '__root__' | '/' | '/apple' | '/conditions' | '/platforms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppleRoute: typeof AppleRoute
+  ConditionsRoute: typeof ConditionsRoute
+  PlatformsRoute: typeof PlatformsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +78,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apple': {
+      id: '/apple'
+      path: '/apple'
+      fullPath: '/apple'
+      preLoaderRoute: typeof AppleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conditions': {
+      id: '/conditions'
+      path: '/conditions'
+      fullPath: '/conditions'
+      preLoaderRoute: typeof ConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platforms': {
+      id: '/platforms'
+      path: '/platforms'
+      fullPath: '/platforms'
+      preLoaderRoute: typeof PlatformsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppleRoute: AppleRoute,
+  ConditionsRoute: ConditionsRoute,
+  PlatformsRoute: PlatformsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
