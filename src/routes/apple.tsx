@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { Apple } from "lucide-react";
 import { Particles, TopBar } from "@/components/vip/Chrome";
 import { WinnersFeed } from "@/components/vip/WinnersFeed";
 import { getUserId } from "@/lib/session";
@@ -103,9 +104,9 @@ function ApplePage() {
                 }`}
               >
                 {cell === "safe" ? (
-                  <span className="drop-shadow-[0_0_10px_var(--gold)]">🍎</span>
+                  <Apple className="h-5 w-5 text-gold drop-shadow-[0_0_10px_var(--gold)]" fill="currentColor" />
                 ) : cell === "burnt" ? (
-                  <span className="grayscale">🍏</span>
+                  <Apple className="h-5 w-5 text-muted-foreground/40" />
                 ) : null}
               </div>
             ))}
