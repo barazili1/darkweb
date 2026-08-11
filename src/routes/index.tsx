@@ -38,6 +38,7 @@ function Splash() {
       const t = setTimeout(() => navigate({ to: "/platforms" }), 700);
       return () => clearTimeout(t);
     }
+    return undefined;
   }, [progress, navigate]);
 
   return (

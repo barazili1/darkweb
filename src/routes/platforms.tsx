@@ -97,16 +97,14 @@ function PlatformsPage() {
       {connecting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/70 px-6 backdrop-blur-md">
           <div className="glass animate-fade-up neon-border w-full max-w-sm space-y-3 rounded-2xl p-5">
-            {STEPS.slice(0, Math.max(step, 1)).map((s, i) => {
-              const done = i < step - 1 || i < STEPS.length - 1 ? i < step - 1 : false;
-              const isLast = i === STEPS.length - 1;
-              const finished = i < step - 1 || (isLast && step >= STEPS.length);
+            {STEPS.slice(0, step + 1).map((s, i) => {
+              const finished = i < step;
               return (
                 <p
                   key={s}
                   className={`animate-fade-up flex items-center gap-2 text-xs ${
-                    isLast && finished ? "text-success" : "text-foreground"
-                  } ${done ? "opacity-80" : ""}`}
+                    finished && i === STEPS.length - 1 ? "text-success" : "text-foreground"
+                  }`}
                 >
                   {finished ? (
                     <Check className="h-4 w-4 text-success" />
