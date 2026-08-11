@@ -101,7 +101,7 @@ function ApplePage() {
             )}
           </div>
 
-          <div className="glass space-y-1.5 rounded-2xl p-2.5">
+          <div className="glass space-y-1.5 overflow-x-auto rounded-2xl p-2.5">
             {Array.from({ length: ROWS }).map((_, r) => {
               const open = revealed > r;
               const active = running && revealed === r;
@@ -119,14 +119,14 @@ function ApplePage() {
                   >
                     {COEF[r]?.toFixed(2)}x
                   </span>
-                  <div className="grid flex-1 grid-cols-5 gap-1.5">
+                  <div className="flex flex-1 justify-end gap-1.5">
                     {Array.from({ length: COLS }).map((_, c) => {
                       const rotten = grid?.[r]?.[c] === true;
                       const isSafe = open && !rotten;
                       return (
                         <div
                           key={c}
-                          className={`flex aspect-square items-center justify-center rounded-lg border transition-all duration-500 ${
+                          className={`flex h-10 w-[60px] shrink-0 items-center justify-center rounded-lg border transition-all duration-500 ${
                             isSafe
                               ? "border-primary bg-primary/15 shadow-[var(--glow-sm)]"
                               : open
@@ -173,7 +173,7 @@ function ApplePage() {
             </button>
           </div>
 
-          <div className="mt-5">
+          <div className="mt-24">
             <WinnersFeed title="أرباح لعبة التفاحة — مباشر" appleOnly />
           </div>
         </div>

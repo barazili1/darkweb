@@ -40,18 +40,18 @@
 :root {
   --radius: 1rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.18 0.03 300);
+  --foreground: oklch(0.32 0.19 300);
   --card: oklch(0.99 0.005 305);
-  --card-foreground: oklch(0.2 0.03 300);
+  --card-foreground: oklch(0.32 0.19 300);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.03 300);
+  --popover-foreground: oklch(0.32 0.19 300);
   --primary: oklch(0.55 0.25 305);
   --primary-foreground: oklch(0.99 0 0);
   --primary-glow: oklch(0.66 0.24 310);
   --secondary: oklch(0.96 0.02 305);
-  --secondary-foreground: oklch(0.25 0.05 300);
+  --secondary-foreground: oklch(0.32 0.18 300);
   --muted: oklch(0.96 0.01 300);
-  --muted-foreground: oklch(0.48 0.03 300);
+  --muted-foreground: oklch(0.52 0.12 302);
   --accent: oklch(0.93 0.05 305);
   --accent-foreground: oklch(0.25 0.08 305);
   --success: oklch(0.6 0.18 148);
