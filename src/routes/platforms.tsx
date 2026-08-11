@@ -1,7 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, Loader2 } from "lucide-react";
+import { Check, Loader2, ShieldCheck, TrendingUp, Zap } from "lucide-react";
 import bg from "@/assets/casino-bg.jpg";
+import platformArt from "@/assets/platform-generic.png";
 import { OnlineUsers, Particles, TopBar } from "@/components/vip/Chrome";
 import { WinnersFeed } from "@/components/vip/WinnersFeed";
 import { PLATFORMS, savePlatform, type PlatformId } from "@/lib/session";
@@ -46,52 +47,95 @@ function PlatformsPage() {
   };
 
   return (
-    <main className="page-bg screen-frame relative min-h-screen pb-10">
+    <main className="page-bg screen-frame relative min-h-screen pb-16">
       <img
         src={bg}
         alt=""
         aria-hidden
         loading="lazy"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20 blur-md"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-10 blur-lg"
       />
       <Particles />
       <div className="relative z-10">
         <TopBar title="اختيار المنصة" right={<OnlineUsers />} />
 
-        <div className="space-y-4 px-4 pt-[50px]">
+        {/* Hero */}
+        <section className="px-4 pt-[50px] text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-widest text-primary">
+            <Zap className="h-3 w-3" /> VIP ACCESS
+          </span>
+          <h2 className="neon-text mt-3 text-2xl font-extrabold text-primary">اختر منصتك</h2>
+          <p className="mt-1 text-xs text-muted-foreground">
+            حدد المنصة التي تلعب عليها لتشغيل أداة الكشف الخاصة بك
+          </p>
+        </section>
+
+        {/* Platform cards */}
+        <section className="mt-6 space-y-4 px-4">
           {(Object.keys(PLATFORMS) as PlatformId[]).map((id, i) => {
             const p = PLATFORMS[id];
             return (
               <button
                 key={id}
                 onClick={() => choose(id)}
-                className="animate-fade-up glass group flex w-full items-center gap-4 rounded-2xl p-4 text-right transition-all duration-300 hover:-translate-y-1 hover:neon-border active:scale-[0.99]"
+                className="animate-fade-up glass group relative w-full overflow-hidden rounded-3xl p-5 text-right transition-all duration-300 hover:-translate-y-1 hover:neon-border active:scale-[0.99]"
                 style={{
                   animationDelay: `${i * 120}ms`,
-                  backgroundImage: `linear-gradient(120deg, ${p.accent}22, transparent 60%)`,
+                  backgroundImage: `linear-gradient(130deg, ${p.accent}1f, transparent 65%)`,
                 }}
               >
                 <span
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-border text-base font-extrabold"
-                  style={{ color: p.accent, boxShadow: `0 0 22px ${p.accent}66` }}
-                >
-                  {p.short}
-                </span>
-                <span className="flex-1">
-                  <span className="block text-xl font-extrabold tracking-wide">{p.name}</span>
-                  <span className="block text-xs text-muted-foreground">{p.tagline}</span>
-                </span>
-                <span className="text-primary-glow transition-transform group-hover:-translate-x-1">
-                  ‹
-                </span>
+                  aria-hidden
+                  className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full blur-2xl transition-opacity duration-300 group-hover:opacity-90"
+                  style={{ background: p.accent, opacity: 0.35 }}
+                />
+                <div className="relative flex items-center gap-4">
+                  <img
+                    src={platformArt}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    width={512}
+                    height={512}
+                    className="h-16 w-16 shrink-0 object-contain drop-shadow-[0_0_18px_var(--primary-glow)]"
+                  />
+                  <div className="flex-1">
+                    <span
+                      className="inline-block rounded-md px-2 py-0.5 text-[10px] font-extrabold tracking-widest"
+                      style={{ color: p.accent, background: `${p.accent}1f` }}
+                    >
+                      {p.short}
+                    </span>
+                    <h3 className="mt-1 text-2xl font-extrabold tracking-wide text-primary">
+                      {p.name}
+                    </h3>
+                    <p className="text-xs text-muted-foreground">{p.tagline}</p>
+                  </div>
+                  <span className="text-2xl text-primary transition-transform group-hover:-translate-x-1">
+                    ‹
+                  </span>
+                </div>
+
+                <div className="relative mt-4 grid grid-cols-3 gap-2 border-t border-border pt-3 text-center">
+                  <span className="flex flex-col items-center gap-1 text-[10px] text-muted-foreground">
+                    <ShieldCheck className="h-3.5 w-3.5 text-primary" /> موثوقة
+                  </span>
+                  <span className="flex flex-col items-center gap-1 text-[10px] text-muted-foreground">
+                    <TrendingUp className="h-3.5 w-3.5 text-primary" /> نسبة نجاح 97%
+                  </span>
+                  <span className="flex flex-col items-center gap-1 text-[10px] text-muted-foreground">
+                    <Zap className="h-3.5 w-3.5 text-primary" /> سحب فوري
+                  </span>
+                </div>
               </button>
             );
           })}
-        </div>
+        </section>
 
-        <div className="px-4 pt-6">
+        {/* Winners dashboard — very bottom */}
+        <section className="mt-24 px-4">
           <WinnersFeed />
-        </div>
+        </section>
       </div>
 
       {connecting && (
@@ -109,7 +153,7 @@ function PlatformsPage() {
                   {finished ? (
                     <Check className="h-4 w-4 text-success" />
                   ) : (
-                    <Loader2 className="h-4 w-4 animate-spin text-primary-glow" />
+                    <Loader2 className="h-4 w-4 animate-spin text-primary" />
                   )}
                   {s}
                 </p>
