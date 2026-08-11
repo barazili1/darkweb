@@ -4,9 +4,9 @@ const AMOUNTS = ["$150", "500 EGP", "$1,240", "2,300 EGP", "$85", "9,700 EGP"];
 
 function row(i: number, appleOnly: boolean) {
   return {
-    name: NAMES[i % NAMES.length],
-    amount: AMOUNTS[i % AMOUNTS.length],
-    game: appleOnly ? "التفاحة" : GAMES[i % GAMES.length],
+    name: NAMES[i % NAMES.length]!,
+    amount: AMOUNTS[i % AMOUNTS.length]!,
+    game: appleOnly ? "التفاحة" : GAMES[i % GAMES.length]!,
     time: `منذ ${(i % 9) + 3} ثانية`,
   };
 }
