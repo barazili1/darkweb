@@ -58,7 +58,7 @@ function PlatformsPage() {
       <div className="relative z-10">
         <TopBar title="اختيار المنصة" right={<OnlineUsers />} />
 
-        <div className="space-y-4 px-4 pt-5">
+        <div className="space-y-4 px-4 pt-[50px]">
           {(Object.keys(PLATFORMS) as PlatformId[]).map((id, i) => {
             const p = PLATFORMS[id];
             return (
