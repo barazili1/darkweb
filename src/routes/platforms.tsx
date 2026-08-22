@@ -4,6 +4,8 @@ import { Check, ChevronLeft, Loader2, ShieldCheck, TrendingUp, Zap } from "lucid
 import bg from "@/assets/casino-bg.jpg";
 import logo1xbet from "@/assets/logo-1xbet.png";
 import logoGreenbet from "@/assets/logo-greenbet.jpg";
+import dragonLogo from "@/assets/dragon-logo.png";
+
 
 const LOGOS: Record<string, string> = { "1xbet": logo1xbet, greenbet: logoGreenbet };
 import { OnlineUsers, Particles, TopBar } from "@/components/vip/Chrome";
