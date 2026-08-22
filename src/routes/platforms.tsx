@@ -112,13 +112,12 @@ function PlatformsPage() {
                   style={{ background: `${p.accent}1f` }}
                 >
                   <img
-                    src={platformArt}
-                    alt=""
-                    aria-hidden
+                    src={LOGOS[id]}
+                    alt={p.name}
                     loading="lazy"
                     width={512}
                     height={512}
-                    className="h-11 w-11 object-contain drop-shadow-[0_0_18px_var(--primary-glow)]"
+                    className="h-12 w-12 rounded-xl object-contain drop-shadow-[0_0_18px_var(--primary-glow)]"
                   />
                 </div>
 
