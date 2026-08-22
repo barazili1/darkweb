@@ -8,7 +8,7 @@ export function DragonMark({ className, size = 40 }: { className?: string; size?
       alt="Dragon VIP"
       width={size}
       height={size}
-      className={cn("drop-shadow-[0_0_14px_oklch(0.6_0.26_305/70%)]", className)}
+      className={cn("drop-shadow-[0_0_14px_oklch(0.68_0.26_275/85%)]", className)}
       style={{ width: size, height: size }}
     />
   );

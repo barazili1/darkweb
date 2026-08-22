@@ -25,6 +25,12 @@ const STEPS = [
   "تم الاتصال بالمنصة بنجاح!",
 ];
 
+const STATS = [
+  { label: "نسبة النجاح", value: "97%" },
+  { label: "لاعب نشط", value: "14.5K" },
+  { label: "سحب اليوم", value: "$82K" },
+];
+
 function PlatformsPage() {
   const navigate = useNavigate();
   const [connecting, setConnecting] = useState(false);
@@ -53,7 +59,7 @@ function PlatformsPage() {
         alt=""
         aria-hidden
         loading="lazy"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-10 blur-lg"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20 blur-xl"
       />
       <Particles />
       <div className="relative z-10">
@@ -64,49 +70,73 @@ function PlatformsPage() {
           <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-widest text-primary">
             <Zap className="h-3 w-3" /> VIP ACCESS
           </span>
-          <h2 className="neon-text mt-3 text-2xl font-extrabold text-primary">اختر منصتك</h2>
+          <h2 className="neon-text mt-3 text-2xl font-extrabold text-foreground">اختر منصتك</h2>
           <p className="mt-1 text-xs text-muted-foreground">
             حدد المنصة التي تلعب عليها لتشغيل أداة الكشف الخاصة بك
           </p>
         </section>
 
+        {/* Stats strip */}
+        <section className="mt-5 grid grid-cols-3 gap-2 px-4">
+          {STATS.map((s, i) => (
+            <div
+              key={s.label}
+              className="animate-fade-up glass rounded-2xl px-2 py-3 text-center"
+              style={{ animationDelay: `${i * 80}ms` }}
+            >
+              <p className="neon-text text-base font-extrabold text-primary">{s.value}</p>
+              <p className="mt-0.5 text-[9px] tracking-wide text-muted-foreground">{s.label}</p>
+            </div>
+          ))}
+        </section>
+
         {/* Platform cards */}
-        <section className="mt-6 space-y-4 px-4">
+        <section className="mt-6 space-y-5 px-4">
           {(Object.keys(PLATFORMS) as PlatformId[]).map((id, i) => {
             const p = PLATFORMS[id];
             return (
               <button
                 key={id}
                 onClick={() => choose(id)}
-                className="animate-fade-up glass group relative w-full overflow-hidden rounded-3xl p-5 text-right transition-all duration-300 hover:-translate-y-1 hover:neon-border active:scale-[0.99]"
+                className="animate-fade-up glass group relative w-full overflow-hidden rounded-[28px] p-5 text-right transition-all duration-300 hover:-translate-y-1.5 hover:neon-border active:scale-[0.99]"
                 style={{
                   animationDelay: `${i * 120}ms`,
-                  backgroundImage: `linear-gradient(130deg, ${p.accent}1f, transparent 65%)`,
+                  backgroundImage: `linear-gradient(135deg, ${p.accent}2e, transparent 60%)`,
                 }}
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full blur-2xl transition-opacity duration-300 group-hover:opacity-90"
-                  style={{ background: p.accent, opacity: 0.35 }}
+                  className="pointer-events-none absolute -left-10 -top-10 h-36 w-36 rounded-full blur-3xl transition-opacity duration-300 group-hover:opacity-100"
+                  style={{ background: p.accent, opacity: 0.4 }}
+                />
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-6 top-0 h-px"
+                  style={{ background: `linear-gradient(90deg,transparent,${p.accent},transparent)` }}
                 />
                 <div className="relative flex items-center gap-4">
-                  <img
-                    src={platformArt}
-                    alt=""
-                    aria-hidden
-                    loading="lazy"
-                    width={512}
-                    height={512}
-                    className="h-16 w-16 shrink-0 object-contain drop-shadow-[0_0_18px_var(--primary-glow)]"
-                  />
+                  <div
+                    className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-border"
+                    style={{ background: `${p.accent}1a` }}
+                  >
+                    <img
+                      src={platformArt}
+                      alt=""
+                      aria-hidden
+                      loading="lazy"
+                      width={512}
+                      height={512}
+                      className="h-14 w-14 object-contain drop-shadow-[0_0_20px_var(--primary-glow)]"
+                    />
+                  </div>
                   <div className="flex-1">
                     <span
                       className="inline-block rounded-md px-2 py-0.5 text-[10px] font-extrabold tracking-widest"
-                      style={{ color: p.accent, background: `${p.accent}1f` }}
+                      style={{ color: p.accent, background: `${p.accent}26` }}
                     >
                       {p.short}
                     </span>
-                    <h3 className="mt-1 text-2xl font-extrabold tracking-wide text-primary">
+                    <h3 className="neon-text mt-1 text-2xl font-extrabold tracking-wide text-foreground">
                       {p.name}
                     </h3>
                     <p className="text-xs text-muted-foreground">{p.tagline}</p>
@@ -127,6 +157,10 @@ function PlatformsPage() {
                     <Zap className="h-3.5 w-3.5 text-primary" /> سحب فوري
                   </span>
                 </div>
+
+                <span className="relative mt-4 block w-full rounded-xl border border-primary/40 bg-primary/10 py-2 text-center text-[11px] font-bold tracking-widest text-primary transition-colors group-hover:bg-primary/20">
+                  اتصال وبدء التفعيل
+                </span>
               </button>
             );
           })}
@@ -139,7 +173,7 @@ function PlatformsPage() {
       </div>
 
       {connecting && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/70 px-6 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/75 px-6 backdrop-blur-md">
           <div className="glass animate-fade-up neon-border w-full max-w-sm space-y-3 rounded-2xl p-5">
             {STEPS.slice(0, step + 1).map((s, i) => {
               const finished = i < step;
