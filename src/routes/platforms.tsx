@@ -171,8 +171,19 @@ function PlatformsPage() {
 
       {connecting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/75 px-6 backdrop-blur-md">
-          <div className="glass animate-fade-up neon-border w-full max-w-sm space-y-3 rounded-3xl p-5">
+          <div className="glass animate-fade-up neon-border w-full max-w-sm rounded-3xl p-6">
+            <div className="mb-5 flex flex-col items-center">
+              <img
+                src={dragonLogo}
+                alt="DRAGON VIP"
+                width={256}
+                height={256}
+                className="h-20 w-20 animate-pulse object-contain drop-shadow-[0_0_28px_var(--primary-glow)]"
+              />
+            </div>
+            <div className="space-y-3">
             {STEPS.slice(0, step + 1).map((s, i) => {
+
               const finished = i < step;
               return (
                 <p
