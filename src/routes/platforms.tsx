@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, Loader2, ShieldCheck, TrendingUp, Zap } from "lucide-react";
+import { Check, ChevronLeft, Loader2, ShieldCheck, TrendingUp, Zap } from "lucide-react";
 import bg from "@/assets/casino-bg.jpg";
 import platformArt from "@/assets/platform-generic.png";
 import { OnlineUsers, Particles, TopBar } from "@/components/vip/Chrome";
@@ -14,6 +14,8 @@ export const Route = createFileRoute("/platforms")({
       { name: "description", content: "اختر منصتك 1XBET أو GREENBET لبدء تفعيل حساب VIP." },
       { property: "og:title", content: "اختيار المنصة — DRAGON VIP" },
       { property: "og:description", content: "اختر منصتك لبدء تفعيل حساب VIP." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: PlatformsPage,
@@ -26,9 +28,9 @@ const STEPS = [
 ];
 
 const STATS = [
-  { label: "نسبة النجاح", value: "97%" },
-  { label: "لاعب نشط", value: "14.5K" },
-  { label: "سحب اليوم", value: "$82K" },
+  { label: "نسبة النجاح", value: "97%", icon: TrendingUp },
+  { label: "لاعب نشط", value: "14.5K", icon: ShieldCheck },
+  { label: "سحب اليوم", value: "$82K", icon: Zap },
 ];
 
 function PlatformsPage() {
@@ -59,7 +61,7 @@ function PlatformsPage() {
         alt=""
         aria-hidden
         loading="lazy"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20 blur-xl"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-15 blur-2xl"
       />
       <Particles />
       <div className="relative z-10">
@@ -67,114 +69,111 @@ function PlatformsPage() {
 
         {/* Hero */}
         <section className="px-4 pt-[50px] text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-widest text-primary">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-[0.3em] text-primary">
             <Zap className="h-3 w-3" /> VIP ACCESS
           </span>
           <h2 className="neon-text mt-3 text-2xl font-extrabold text-foreground">اختر منصتك</h2>
-          <p className="mt-1 text-xs text-muted-foreground">
+          <p className="mx-auto mt-1 max-w-[260px] text-xs leading-relaxed text-muted-foreground">
             حدد المنصة التي تلعب عليها لتشغيل أداة الكشف الخاصة بك
           </p>
         </section>
 
-        {/* Stats strip */}
-        <section className="mt-5 grid grid-cols-3 gap-2 px-4">
-          {STATS.map((s, i) => (
-            <div
-              key={s.label}
-              className="animate-fade-up glass rounded-2xl px-2 py-3 text-center"
-              style={{ animationDelay: `${i * 80}ms` }}
-            >
-              <p className="neon-text text-base font-extrabold text-primary">{s.value}</p>
-              <p className="mt-0.5 text-[9px] tracking-wide text-muted-foreground">{s.label}</p>
-            </div>
-          ))}
-        </section>
-
-        {/* Platform cards */}
-        <section className="mt-6 space-y-5 px-4">
+        {/* Platform cards — side by side */}
+        <section className="mt-6 grid grid-cols-2 gap-3 px-4">
           {(Object.keys(PLATFORMS) as PlatformId[]).map((id, i) => {
             const p = PLATFORMS[id];
             return (
               <button
                 key={id}
                 onClick={() => choose(id)}
-                className="animate-fade-up glass group relative w-full overflow-hidden rounded-[28px] p-5 text-right transition-all duration-300 hover:-translate-y-1.5 hover:neon-border active:scale-[0.99]"
+                className="animate-fade-up glass group relative flex flex-col items-center overflow-hidden rounded-3xl px-3 pb-3 pt-5 text-center transition-all duration-300 hover:-translate-y-1.5 hover:neon-border active:scale-[0.98]"
                 style={{
-                  animationDelay: `${i * 120}ms`,
-                  backgroundImage: `linear-gradient(135deg, ${p.accent}2e, transparent 60%)`,
+                  animationDelay: `${i * 110}ms`,
+                  backgroundImage: `linear-gradient(160deg, ${p.accent}33, transparent 62%)`,
                 }}
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -left-10 -top-10 h-36 w-36 rounded-full blur-3xl transition-opacity duration-300 group-hover:opacity-100"
-                  style={{ background: p.accent, opacity: 0.4 }}
+                  className="pointer-events-none absolute -top-12 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full blur-3xl"
+                  style={{ background: p.accent, opacity: 0.35 }}
                 />
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-6 top-0 h-px"
-                  style={{ background: `linear-gradient(90deg,transparent,${p.accent},transparent)` }}
+                  className="pointer-events-none absolute inset-x-5 top-0 h-px"
+                  style={{
+                    background: `linear-gradient(90deg,transparent,${p.accent},transparent)`,
+                  }}
                 />
-                <div className="relative flex items-center gap-4">
-                  <div
-                    className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-border"
-                    style={{ background: `${p.accent}1a` }}
-                  >
-                    <img
-                      src={platformArt}
-                      alt=""
-                      aria-hidden
-                      loading="lazy"
-                      width={512}
-                      height={512}
-                      className="h-14 w-14 object-contain drop-shadow-[0_0_20px_var(--primary-glow)]"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <span
-                      className="inline-block rounded-md px-2 py-0.5 text-[10px] font-extrabold tracking-widest"
-                      style={{ color: p.accent, background: `${p.accent}26` }}
-                    >
-                      {p.short}
-                    </span>
-                    <h3 className="neon-text mt-1 text-2xl font-extrabold tracking-wide text-foreground">
-                      {p.name}
-                    </h3>
-                    <p className="text-xs text-muted-foreground">{p.tagline}</p>
-                  </div>
-                  <span className="text-2xl text-primary transition-transform group-hover:-translate-x-1">
-                    ‹
+
+                <div
+                  className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-border transition-transform duration-300 group-hover:scale-110"
+                  style={{ background: `${p.accent}1f` }}
+                >
+                  <img
+                    src={platformArt}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    width={512}
+                    height={512}
+                    className="h-11 w-11 object-contain drop-shadow-[0_0_18px_var(--primary-glow)]"
+                  />
+                </div>
+
+                <span
+                  className="relative mt-3 inline-block rounded-md px-2 py-0.5 text-[9px] font-extrabold tracking-[0.2em]"
+                  style={{ color: p.accent, background: `${p.accent}26` }}
+                >
+                  {p.short}
+                </span>
+                <h3 className="neon-text mt-1 text-lg font-extrabold leading-tight text-foreground">
+                  {p.name}
+                </h3>
+                <p className="mt-0.5 line-clamp-2 text-[10px] leading-relaxed text-muted-foreground">
+                  {p.tagline}
+                </p>
+
+                <div className="relative mt-3 w-full space-y-1 border-t border-border pt-2">
+                  <span className="flex items-center justify-center gap-1 text-[9px] text-muted-foreground">
+                    <ShieldCheck className="h-3 w-3 text-primary" /> موثوقة · سحب فوري
                   </span>
                 </div>
 
-                <div className="relative mt-4 grid grid-cols-3 gap-2 border-t border-border pt-3 text-center">
-                  <span className="flex flex-col items-center gap-1 text-[10px] text-muted-foreground">
-                    <ShieldCheck className="h-3.5 w-3.5 text-primary" /> موثوقة
-                  </span>
-                  <span className="flex flex-col items-center gap-1 text-[10px] text-muted-foreground">
-                    <TrendingUp className="h-3.5 w-3.5 text-primary" /> نسبة نجاح 97%
-                  </span>
-                  <span className="flex flex-col items-center gap-1 text-[10px] text-muted-foreground">
-                    <Zap className="h-3.5 w-3.5 text-primary" /> سحب فوري
-                  </span>
-                </div>
-
-                <span className="relative mt-4 block w-full rounded-xl border border-primary/40 bg-primary/10 py-2 text-center text-[11px] font-bold tracking-widest text-primary transition-colors group-hover:bg-primary/20">
-                  اتصال وبدء التفعيل
+                <span className="relative mt-2.5 flex w-full items-center justify-center gap-1 rounded-xl border border-primary/40 bg-primary/10 py-2 text-[10px] font-bold tracking-widest text-primary transition-colors group-hover:bg-primary/20">
+                  اتصال <ChevronLeft className="h-3 w-3" />
                 </span>
               </button>
             );
           })}
         </section>
 
+        {/* Stats strip */}
+        <section className="mt-6 grid grid-cols-3 gap-2 px-4">
+          {STATS.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <div
+                key={s.label}
+                className="animate-fade-up glass flex flex-col items-center rounded-2xl px-2 py-3 text-center"
+                style={{ animationDelay: `${300 + i * 80}ms` }}
+              >
+                <Icon className="mb-1 h-3.5 w-3.5 text-primary" />
+                <p className="neon-text text-base font-extrabold text-primary">{s.value}</p>
+                <p className="mt-0.5 text-[9px] tracking-wide text-muted-foreground">{s.label}</p>
+              </div>
+            );
+          })}
+        </section>
+
         {/* Winners dashboard — very bottom */}
-        <section className="mt-24 px-4">
+        <section className="mt-28 px-4">
           <WinnersFeed />
         </section>
       </div>
 
       {connecting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/75 px-6 backdrop-blur-md">
-          <div className="glass animate-fade-up neon-border w-full max-w-sm space-y-3 rounded-2xl p-5">
+          <div className="glass animate-fade-up neon-border w-full max-w-sm space-y-3 rounded-3xl p-5">
             {STEPS.slice(0, step + 1).map((s, i) => {
               const finished = i < step;
               return (
