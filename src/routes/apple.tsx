@@ -4,6 +4,7 @@ import { Apple, Bomb, Play, RotateCcw, Sparkles, Target } from "lucide-react";
 import { Particles, TopBar } from "@/components/vip/Chrome";
 import { WinnersFeed } from "@/components/vip/WinnersFeed";
 import { getPlatform, getUserId, PLATFORMS } from "@/lib/session";
+import { buildMatrix, fetchAppleMatrix, isVip, resetAppleMatrix, type Matrix } from "@/lib/firebase";
 
 export const Route = createFileRoute("/apple")({
   head: () => ({
@@ -24,14 +25,6 @@ const COLS = 5;
 // index 0 = أول صف من تحت (1.23x) ... index 9 = أعلى صف (349.68x)
 const COEF = [1.23, 1.54, 1.93, 2.41, 4.02, 6.71, 11.18, 27.97, 69.93, 349.68];
 
-type Matrix = boolean[][]; // true = rotten
-
-function generateMatrix(): Matrix {
-  return Array.from({ length: ROWS }, () => {
-    const safe = Math.floor(Math.random() * COLS);
-    return Array.from({ length: COLS }, (_, c) => c !== safe);
-  });
-}
 
 function ApplePage() {
   const [userId, setUserId] = useState("");
@@ -53,10 +46,12 @@ function ApplePage() {
     return clear;
   }, [clear]);
 
-  const start = () => {
+  const start = async () => {
     if (running) return;
     clear();
-    setGrid(generateMatrix());
+    const vip = isVip(getUserId());
+    const remote = vip ? await fetchAppleMatrix() : null;
+    setGrid(remote ?? buildMatrix());
     setRevealed(0);
     setRunning(true);
     for (let i = 1; i <= ROWS; i++) {
@@ -74,6 +69,7 @@ function ApplePage() {
     setRunning(false);
     setRevealed(0);
     setGrid(null);
+    if (isVip(getUserId())) void resetAppleMatrix();
   };
 
   // نعرض من أعلى (349.68x) إلى أسفل (1.23x) والكشف يبدأ من تحت
@@ -194,7 +190,7 @@ function ApplePage() {
           {/* Controls */}
           <div className="mt-4 grid grid-cols-2 gap-3">
             <button
-              onClick={start}
+              onClick={() => void start()}
               disabled={running}
               className="gradient-primary flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-extrabold text-primary-foreground shadow-[var(--glow-lg)] transition-transform hover:scale-[1.03] active:scale-95 disabled:opacity-50"
             >
