@@ -2,7 +2,10 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Check, ChevronLeft, Loader2, ShieldCheck, TrendingUp, Zap } from "lucide-react";
 import bg from "@/assets/casino-bg.jpg";
-import platformArt from "@/assets/platform-generic.png";
+import logo1xbet from "@/assets/logo-1xbet.png";
+import logoGreenbet from "@/assets/logo-greenbet.jpg";
+
+const LOGOS: Record<string, string> = { "1xbet": logo1xbet, greenbet: logoGreenbet };
 import { OnlineUsers, Particles, TopBar } from "@/components/vip/Chrome";
 import { PLATFORMS, savePlatform, type PlatformId } from "@/lib/session";
 
