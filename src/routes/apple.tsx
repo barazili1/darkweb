@@ -129,19 +129,19 @@ function ApplePage() {
           </div>
 
           {/* Grid */}
-          <div className="glass relative space-y-1.5 overflow-x-auto rounded-3xl p-2.5">
+          <div className="glass relative space-y-1.5 rounded-3xl p-2.5">
             {order.map((r) => {
               const open = revealed > r;
               const active = running && revealed === r;
               return (
                 <div
                   key={r}
-                  className={`flex items-center gap-2 rounded-xl px-1.5 py-1 transition-all duration-300 ${
+                  className={`flex items-center gap-1.5 rounded-xl px-1 py-1 transition-all duration-300 ${
                     active ? "bg-primary/10 shadow-[var(--glow-sm)]" : ""
                   }`}
                 >
                   <span
-                    className={`w-16 shrink-0 rounded-lg border py-1 text-center text-[11px] font-extrabold transition-colors ${
+                    className={`w-[52px] shrink-0 rounded-lg border py-1 text-center text-[10px] font-extrabold transition-colors ${
                       open
                         ? "border-primary/60 bg-primary/10 text-primary"
                         : "border-border bg-background/50 text-muted-foreground"
@@ -149,15 +149,15 @@ function ApplePage() {
                   >
                     {COEF[r]?.toFixed(2)}x
                   </span>
-                  <div className="flex flex-1 justify-end gap-1.5">
+                  <div className="grid min-w-0 flex-1 grid-cols-5 gap-1">
                     {Array.from({ length: COLS }).map((_, c) => {
                       const rotten = grid?.[r]?.[c] === true;
                       const isSafe = open && !rotten;
                       return (
                         <div
                           key={c}
-                          style={{ height: 40, width: 60 }}
-                          className={`flex shrink-0 items-center justify-center rounded-lg border transition-all duration-500 ${
+                          style={{ height: 40, maxWidth: 60 }}
+                          className={`flex w-full min-w-0 items-center justify-center rounded-lg border transition-all duration-500 ${
                             isSafe
                               ? "border-primary bg-primary/15 shadow-[var(--glow-sm)]"
                               : open
