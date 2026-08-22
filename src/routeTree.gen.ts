@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppleRouteImport } from './routes/apple'
 import { Route as ConditionsRouteImport } from './routes/conditions'
+import { Route as CrashRouteImport } from './routes/crash'
+import { Route as MinesRouteImport } from './routes/mines'
 import { Route as PlatformsRouteImport } from './routes/platforms'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +31,16 @@ const ConditionsRoute = ConditionsRouteImport.update({
   path: '/conditions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CrashRoute = CrashRouteImport.update({
+  id: '/crash',
+  path: '/crash',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MinesRoute = MinesRouteImport.update({
+  id: '/mines',
+  path: '/mines',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformsRoute = PlatformsRouteImport.update({
   id: '/platforms',
   path: '/platforms',
@@ -39,12 +51,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/apple': typeof AppleRoute
   '/conditions': typeof ConditionsRoute
+  '/crash': typeof CrashRoute
+  '/mines': typeof MinesRoute
   '/platforms': typeof PlatformsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/apple': typeof AppleRoute
   '/conditions': typeof ConditionsRoute
+  '/crash': typeof CrashRoute
+  '/mines': typeof MinesRoute
   '/platforms': typeof PlatformsRoute
 }
 export interface FileRoutesById {
@@ -52,20 +68,31 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/apple': typeof AppleRoute
   '/conditions': typeof ConditionsRoute
+  '/crash': typeof CrashRoute
+  '/mines': typeof MinesRoute
   '/platforms': typeof PlatformsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/apple' | '/conditions' | '/platforms'
+  fullPaths: '/' | '/apple' | '/conditions' | '/crash' | '/mines' | '/platforms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/apple' | '/conditions' | '/platforms'
-  id: '__root__' | '/' | '/apple' | '/conditions' | '/platforms'
+  to: '/' | '/apple' | '/conditions' | '/crash' | '/mines' | '/platforms'
+  id:
+    | '__root__'
+    | '/'
+    | '/apple'
+    | '/conditions'
+    | '/crash'
+    | '/mines'
+    | '/platforms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppleRoute: typeof AppleRoute
   ConditionsRoute: typeof ConditionsRoute
+  CrashRoute: typeof CrashRoute
+  MinesRoute: typeof MinesRoute
   PlatformsRoute: typeof PlatformsRoute
 }
 
@@ -92,6 +119,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/crash': {
+      id: '/crash'
+      path: '/crash'
+      fullPath: '/crash'
+      preLoaderRoute: typeof CrashRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mines': {
+      id: '/mines'
+      path: '/mines'
+      fullPath: '/mines'
+      preLoaderRoute: typeof MinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platforms': {
       id: '/platforms'
       path: '/platforms'
@@ -106,6 +147,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppleRoute: AppleRoute,
   ConditionsRoute: ConditionsRoute,
+  CrashRoute: CrashRoute,
+  MinesRoute: MinesRoute,
   PlatformsRoute: PlatformsRoute,
 }
 export const routeTree = rootRouteImport
