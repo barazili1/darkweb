@@ -103,13 +103,13 @@
 
 @utility neon-text {
   text-shadow:
-    0 0 10px oklch(0.6 0.26 305 / 45%),
-    0 0 30px oklch(0.6 0.26 305 / 30%);
+    0 0 10px oklch(0.68 0.26 275 / 45%),
+    0 0 30px oklch(0.68 0.26 275 / 30%);
 }
 
 @utility neon-border {
   box-shadow:
-    0 0 0 1px oklch(0.6 0.26 305 / 45%),
+    0 0 0 1px oklch(0.68 0.26 275 / 45%),
     var(--glow-md);
 }
 
@@ -196,9 +196,9 @@
       linear-gradient(
           90deg,
           transparent,
-          oklch(0.6 0.26 305 / 45%),
+          oklch(0.68 0.26 275 / 45%),
           transparent,
-          oklch(0.6 0.26 305 / 45%),
+          oklch(0.68 0.26 275 / 45%),
           transparent
         )
         border-box;
