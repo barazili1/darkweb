@@ -107,7 +107,7 @@ function CrashPage() {
                 </linearGradient>
               </defs>
               <path
-                d={`M0,100 C ${35 * progress},${100 - 30 * progress} ${60 * progress},${100 - 70 * progress} ${100 * progress},${100 - 96 * progress}`}
+                d={`M0,100 C ${55 * progress},100 ${88 * progress},${100 - 32 * progress} ${100 * progress},${100 - 96 * progress}`}
                 fill="none"
                 stroke="url(#crashline)"
                 strokeWidth="2.5"
