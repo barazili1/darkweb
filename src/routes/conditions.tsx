@@ -140,12 +140,12 @@ function ConditionsPage() {
         />
 
         <section className="px-4 pt-[50px]">
-          <div className="glass animate-fade-up relative overflow-hidden rounded-[28px] p-5 text-center">
+          <div className="animate-fade-up relative overflow-hidden rounded-[30px] border border-primary/25 p-5 text-center">
             <span
               aria-hidden
               className="pointer-events-none absolute -top-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-primary/30 blur-3xl"
             />
-            <DragonMark size={54} className="relative mx-auto animate-glow-pulse" />
+            <DragonMark size={72} className="relative mx-auto animate-glow-pulse" />
             <h2 className="neon-text relative mt-2 text-2xl font-extrabold text-foreground">
               خطوات التفعيل
             </h2>
@@ -262,7 +262,7 @@ function ConditionsPage() {
           </Card>
 
           {/* Game selection */}
-          <div className="animate-fade-up glass rounded-[26px] p-4" style={{ animationDelay: "400ms" }}>
+          <div className="animate-fade-up rounded-[30px] border border-primary/25 p-4" style={{ animationDelay: "400ms" }}>
             <h3 className="flex items-center justify-end gap-2 text-sm font-extrabold text-foreground">
               اختر اللعبة <Gamepad2 className="h-4 w-4 text-primary" />
             </h3>
@@ -288,7 +288,7 @@ function ConditionsPage() {
                       loading="lazy"
                       width={512}
                       height={512}
-                      className="h-14 w-14 object-contain drop-shadow-[0_0_12px_var(--primary-glow)]"
+                      className="h-16 w-16 object-contain drop-shadow-[0_0_12px_var(--primary-glow)]"
                     />
                     <span
                       className={`text-center text-[10px] font-bold leading-tight ${active ? "text-primary" : "text-muted-foreground"}`}
