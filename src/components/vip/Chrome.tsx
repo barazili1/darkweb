@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/dragon-logo.png";
 import { cn } from "@/lib/utils";
 
