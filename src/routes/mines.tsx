@@ -81,9 +81,9 @@ function MinesPage() {
                         src={gem}
                         alt="Gem"
                         loading="lazy"
-                        width={512}
-                        height={512}
-                        className="h-8 w-8 object-contain drop-shadow-[0_0_10px_var(--primary-glow)]"
+                        width={768}
+                        height={768}
+                        className="h-11 w-11 object-contain drop-shadow-[0_0_10px_var(--primary-glow)]"
                       />
                     ) : (
                       <span className="h-1.5 w-1.5 rounded-full bg-primary/40" />
