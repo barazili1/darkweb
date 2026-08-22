@@ -201,7 +201,9 @@ function PlatformsPage() {
                 </p>
               );
             })}
+            </div>
           </div>
+
         </div>
       )}
     </main>
