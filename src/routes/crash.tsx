@@ -26,9 +26,7 @@ function CrashPage() {
   const [odd, setOdd] = useState(1);
   const [target, setTarget] = useState(0);
   const [running, setRunning] = useState(false);
-  const [drawProgress, setDrawProgress] = useState(0);
   const raf = useRef<number | null>(null);
-  const pathRef = useRef<SVGPathElement | null>(null);
 
   useEffect(() => {
     setUserId(getUserId() || "GUEST");
@@ -44,7 +42,6 @@ function CrashPage() {
     const t = remote ?? Math.round((1 + Math.random() * 5) * 100) / 100;
     setTarget(t);
     setOdd(1);
-    setDrawProgress(0);
     setRunning(true);
     const t0 = performance.now();
     const dur = 2600;
@@ -52,7 +49,6 @@ function CrashPage() {
       const p = Math.min(1, (now - t0) / dur);
       const eased = 1 - Math.pow(1 - p, 3);
       setOdd(1 + (t - 1) * eased);
-      setDrawProgress(p);
       if (p < 1) raf.current = requestAnimationFrame(tick);
       else setRunning(false);
     };
@@ -64,20 +60,9 @@ function CrashPage() {
     setRunning(false);
     setOdd(1);
     setTarget(0);
-    setDrawProgress(0);
   };
 
   const progress = target > 1 ? Math.min(1, (odd - 1) / (target - 1)) : 0;
-
-  // Endpoint leaves 10px margin from right & top inside the 100x100 viewBox
-  const endX = 90 * progress;
-  const endY = 100 - 90 * progress;
-
-  // Luxurious downward curve: dips below the straight line then rises
-  const d = `M0,100 C ${28 * progress},${100 + 18 * progress} ${62 * progress},${100 + 18 * progress} ${endX},${endY}`;
-
-  const pathEl = pathRef.current;
-  const dash = pathEl && pathEl.getTotalLength ? pathEl.getTotalLength() : 0;
 
   return (
     <main className="page-bg screen-frame relative min-h-screen pb-10">
@@ -119,37 +104,25 @@ function CrashPage() {
             >
               <defs>
                 <linearGradient id="crashline" x1="0" y1="1" x2="1" y2="0">
-                  <stop offset="0%" stopColor="oklch(0.55 0.24 285)" />
-                  <stop offset="55%" stopColor="oklch(0.72 0.22 300)" />
-                  <stop offset="100%" stopColor="oklch(0.85 0.18 320)" />
+                  <stop offset="0%" stopColor="oklch(0.5 0.26 272)" />
+                  <stop offset="100%" stopColor="oklch(0.78 0.2 285)" />
                 </linearGradient>
-                <filter id="crashglow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="2.5" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
               </defs>
               <path
-                ref={pathRef}
-                d={d}
+                d={`M0,100 C ${55 * progress},100 ${88 * progress},${100 - 32 * progress} ${100 * progress},${100 - 96 * progress}`}
                 fill="none"
                 stroke="url(#crashline)"
-                strokeWidth="3"
+                strokeWidth="2.5"
                 vectorEffect="non-scaling-stroke"
                 strokeLinecap="round"
-                filter="url(#crashglow)"
-                strokeDasharray={dash}
-                strokeDashoffset={dash * (1 - drawProgress)}
+                style={{ filter: "drop-shadow(0 0 8px oklch(0.68 0.26 275))" }}
               />
             </svg>
             <span
-              className="absolute h-3.5 w-3.5 rounded-full border-2 border-background bg-primary shadow-[var(--glow-lg)] transition-none"
+              className="absolute h-3 w-3 rounded-full bg-primary shadow-[var(--glow-md)] transition-none"
               style={{
-                left: `calc(${endX}% - 7px)`,
-                bottom: `calc(${100 - endY}% - 7px)`,
+                left: `calc(${progress * 100}% - 6px)`,
+                bottom: `calc(${progress * 96}% - 6px)`,
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
