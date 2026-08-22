@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import logo from "@/assets/dragon-logo.png";
 import { cn } from "@/lib/utils";
 
@@ -8,7 +9,7 @@ export function DragonMark({ className, size = 40 }: { className?: string; size?
       alt="Dragon VIP"
       width={size}
       height={size}
-      className={cn("drop-shadow-[0_0_14px_oklch(0.68_0.26_275/85%)]", className)}
+      className={cn("drop-shadow-[0_0_16px_oklch(0.7_0.26_320/90%)]", className)}
       style={{ width: size, height: size }}
     />
   );
@@ -42,24 +43,90 @@ export function OnlineUsers() {
   );
 }
 
+const COUNT = 70;
+
 export function Particles() {
-  const dots = Array.from({ length: 18 }, (_, i) => i);
+  const ref = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return undefined;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return undefined;
+
+    let w = 0;
+    let h = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const pts = Array.from({ length: COUNT }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.0006,
+      vy: (Math.random() - 0.5) * 0.0006,
+      r: 0.8 + Math.random() * 1.6,
+    }));
+
+    const resize = () => {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    let raf = 0;
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of pts) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > 1) p.vx *= -1;
+        if (p.y < 0 || p.y > 1) p.vy *= -1;
+      }
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i]!;
+        for (let j = i + 1; j < pts.length; j++) {
+          const b = pts[j]!;
+          const dx = (a.x - b.x) * w;
+          const dy = (a.y - b.y) * h;
+          const d = Math.hypot(dx, dy);
+          if (d < 120) {
+            ctx.strokeStyle = `rgba(200,90,240,${(1 - d / 120) * 0.28})`;
+            ctx.lineWidth = 0.7;
+            ctx.beginPath();
+            ctx.moveTo(a.x * w, a.y * h);
+            ctx.lineTo(b.x * w, b.y * h);
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = "rgba(210,110,255,0.9)";
+      ctx.fillStyle = "rgba(220,140,255,0.85)";
+      for (const p of pts) {
+        ctx.beginPath();
+        ctx.arc(p.x * w, p.y * h, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      {dots.map((i) => (
-        <span
-          key={i}
-          className="absolute bottom-0 rounded-full bg-primary-glow/60"
-          style={{
-            left: `${(i * 37) % 100}%`,
-            width: 3 + (i % 3),
-            height: 3 + (i % 3),
-            filter: "blur(0.5px)",
-            boxShadow: "0 0 10px var(--primary-glow)",
-            animation: `float-up ${16 + (i % 7) * 3}s linear ${i * 1.3}s infinite`,
-          }}
-        />
-      ))}
-    </div>
+    <canvas
+      ref={ref}
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-70"
+    />
   );
 }
