@@ -26,9 +26,7 @@ function CrashPage() {
   const [odd, setOdd] = useState(1);
   const [target, setTarget] = useState(0);
   const [running, setRunning] = useState(false);
-  const [drawProgress, setDrawProgress] = useState(0);
   const raf = useRef<number | null>(null);
-  const pathRef = useRef<SVGPathElement | null>(null);
 
   useEffect(() => {
     setUserId(getUserId() || "GUEST");
@@ -44,7 +42,6 @@ function CrashPage() {
     const t = remote ?? Math.round((1 + Math.random() * 5) * 100) / 100;
     setTarget(t);
     setOdd(1);
-    setDrawProgress(0);
     setRunning(true);
     const t0 = performance.now();
     const dur = 2600;
@@ -52,7 +49,6 @@ function CrashPage() {
       const p = Math.min(1, (now - t0) / dur);
       const eased = 1 - Math.pow(1 - p, 3);
       setOdd(1 + (t - 1) * eased);
-      setDrawProgress(p);
       if (p < 1) raf.current = requestAnimationFrame(tick);
       else setRunning(false);
     };
@@ -64,20 +60,9 @@ function CrashPage() {
     setRunning(false);
     setOdd(1);
     setTarget(0);
-    setDrawProgress(0);
   };
 
   const progress = target > 1 ? Math.min(1, (odd - 1) / (target - 1)) : 0;
-
-  // Endpoint leaves 10px margin from right & top inside the 100x100 viewBox
-  const endX = 90 * progress;
-  const endY = 100 - 90 * progress;
-
-  // Luxurious downward curve: dips below the straight line then rises
-  const d = `M0,100 C ${28 * progress},${100 + 18 * progress} ${62 * progress},${100 + 18 * progress} ${endX},${endY}`;
-
-  const pathEl = pathRef.current;
-  const dash = pathEl && pathEl.getTotalLength ? pathEl.getTotalLength() : 0;
 
   return (
     <main className="page-bg screen-frame relative min-h-screen pb-10">
