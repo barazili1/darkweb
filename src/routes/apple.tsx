@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Apple, Bomb, Play, RotateCcw, Sparkles } from "lucide-react";
+import { Apple, Bomb, Play, RotateCcw, Sparkles, Target } from "lucide-react";
 import { Particles, TopBar } from "@/components/vip/Chrome";
 import { WinnersFeed } from "@/components/vip/WinnersFeed";
 import { getPlatform, getUserId, PLATFORMS } from "@/lib/session";
@@ -12,6 +12,8 @@ export const Route = createFileRoute("/apple")({
       { name: "description", content: "شبكة كشف الخانات الآمنة في لعبة التفاحة بأسلوب VIP." },
       { property: "og:title", content: "كاشف لعبة التفاحة — DRAGON VIP" },
       { property: "og:description", content: "اكشف الخانات الآمنة في لعبة التفاحة." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ApplePage,
@@ -19,6 +21,7 @@ export const Route = createFileRoute("/apple")({
 
 const ROWS = 10;
 const COLS = 5;
+// index 0 = أول صف من تحت (1.23x) ... index 9 = أعلى صف (349.68x)
 const COEF = [1.23, 1.54, 1.93, 2.41, 4.02, 6.71, 11.18, 27.97, 69.93, 349.68];
 
 type Matrix = boolean[][]; // true = rotten
@@ -73,6 +76,9 @@ function ApplePage() {
     setGrid(null);
   };
 
+  // نعرض من أعلى (349.68x) إلى أسفل (1.23x) والكشف يبدأ من تحت
+  const order = Array.from({ length: ROWS }, (_, i) => ROWS - 1 - i);
+
   return (
     <main className="page-bg screen-frame relative min-h-screen pb-10">
       <Particles />
@@ -87,22 +93,44 @@ function ApplePage() {
         />
 
         <div className="px-4 pt-[50px]">
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <p className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-primary">
-                <Sparkles className="h-3.5 w-3.5" /> Predictor
-              </p>
-              <h1 className="neon-text text-2xl font-extrabold">Apple of Fortune</h1>
+          {/* Hero header */}
+          <div className="glass animate-fade-up relative mb-4 overflow-hidden rounded-3xl p-4">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/25 blur-3xl"
+            />
+            <div className="relative flex items-center justify-between">
+              <div>
+                <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                  <Sparkles className="h-3.5 w-3.5" /> Predictor
+                </p>
+                <h1 className="neon-text mt-1 text-2xl font-extrabold">Apple of Fortune</h1>
+              </div>
+              {platform && (
+                <span className="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-[10px] font-bold text-primary">
+                  {platform}
+                </span>
+              )}
             </div>
-            {platform && (
-              <span className="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-[11px] font-bold text-primary">
-                {platform}
+            <div className="relative mt-3 grid grid-cols-3 gap-2 border-t border-border pt-3 text-center">
+              <span className="text-[9px] text-muted-foreground">
+                الدقة <b className="block text-[11px] text-primary">97%</b>
               </span>
-            )}
+              <span className="text-[9px] text-muted-foreground">
+                الصفوف <b className="block text-[11px] text-primary">10</b>
+              </span>
+              <span className="text-[9px] text-muted-foreground">
+                الحالة
+                <b className={`block text-[11px] ${running ? "text-gold" : "text-success"}`}>
+                  {running ? "جارٍ الكشف" : "جاهز"}
+                </b>
+              </span>
+            </div>
           </div>
 
-          <div className="glass space-y-1.5 overflow-x-auto rounded-2xl p-2.5">
-            {Array.from({ length: ROWS }).map((_, r) => {
+          {/* Grid */}
+          <div className="glass relative space-y-1.5 overflow-x-auto rounded-3xl p-2.5">
+            {order.map((r) => {
               const open = revealed > r;
               const active = running && revealed === r;
               return (
@@ -113,8 +141,10 @@ function ApplePage() {
                   }`}
                 >
                   <span
-                    className={`w-14 shrink-0 text-center text-[11px] font-extrabold ${
-                      open ? "text-primary" : "text-muted-foreground"
+                    className={`w-16 shrink-0 rounded-lg border py-1 text-center text-[11px] font-extrabold transition-colors ${
+                      open
+                        ? "border-primary/60 bg-primary/10 text-primary"
+                        : "border-border bg-background/50 text-muted-foreground"
                     }`}
                   >
                     {COEF[r]?.toFixed(2)}x
@@ -126,11 +156,12 @@ function ApplePage() {
                       return (
                         <div
                           key={c}
-                          className={`flex h-10 w-[60px] shrink-0 items-center justify-center rounded-lg border transition-all duration-500 ${
+                          style={{ height: 40, width: 60 }}
+                          className={`flex shrink-0 items-center justify-center rounded-lg border transition-all duration-500 ${
                             isSafe
                               ? "border-primary bg-primary/15 shadow-[var(--glow-sm)]"
                               : open
-                                ? "border-border/60 bg-muted/50 opacity-60"
+                                ? "border-border/60 bg-muted/40 opacity-60"
                                 : active
                                   ? "animate-glow-pulse border-primary/70 bg-primary/15"
                                   : "border-border bg-background/60"
@@ -155,25 +186,29 @@ function ApplePage() {
                 </div>
               );
             })}
+            <p className="flex items-center justify-center gap-1.5 pt-1 text-[9px] tracking-widest text-muted-foreground">
+              <Target className="h-3 w-3 text-primary" /> يبدأ الكشف من 1.23x للأعلى
+            </p>
           </div>
 
+          {/* Controls */}
           <div className="mt-4 grid grid-cols-2 gap-3">
             <button
               onClick={start}
               disabled={running}
-              className="gradient-primary flex items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-extrabold text-primary-foreground shadow-[var(--glow-lg)] transition-transform hover:scale-[1.03] active:scale-95 disabled:opacity-50"
+              className="gradient-primary flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-extrabold text-primary-foreground shadow-[var(--glow-lg)] transition-transform hover:scale-[1.03] active:scale-95 disabled:opacity-50"
             >
               <Play className="h-4 w-4" /> Start
             </button>
             <button
               onClick={restart}
-              className="flex items-center justify-center gap-2 rounded-xl border border-primary/60 bg-secondary/60 py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-secondary"
+              className="flex items-center justify-center gap-2 rounded-2xl border border-primary/60 bg-secondary/60 py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-secondary"
             >
               <RotateCcw className="h-4 w-4" /> Restart
             </button>
           </div>
 
-          <div className="mt-24">
+          <div className="mt-28">
             <WinnersFeed title="أرباح لعبة التفاحة — مباشر" appleOnly />
           </div>
         </div>
