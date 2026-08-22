@@ -4,6 +4,7 @@ import { Play, RotateCcw } from "lucide-react";
 import { DragonMark, Particles, TopBar } from "@/components/vip/Chrome";
 import { WinnersFeed } from "@/components/vip/WinnersFeed";
 import { getPlatform, getUserId, PLATFORMS } from "@/lib/session";
+import { fetchCrashOdd, isVip } from "@/lib/firebase";
 
 export const Route = createFileRoute("/crash")({
   head: () => ({
@@ -35,9 +36,10 @@ function CrashPage() {
     };
   }, []);
 
-  const start = () => {
+  const start = async () => {
     if (running) return;
-    const t = Math.round((1 + Math.random() * 5) * 100) / 100;
+    const remote = isVip(getUserId()) ? await fetchCrashOdd() : null;
+    const t = remote ?? Math.round((1 + Math.random() * 5) * 100) / 100;
     setTarget(t);
     setOdd(1);
     setRunning(true);
@@ -135,7 +137,7 @@ function CrashPage() {
           {/* Controls */}
           <div className="mt-4 grid w-full grid-cols-2 gap-3">
             <button
-              onClick={start}
+              onClick={() => void start()}
               disabled={running}
               className="flex items-center justify-center gap-2 rounded-2xl bg-white py-3.5 text-sm font-extrabold text-background shadow-[var(--glow-md)] transition-transform hover:scale-[1.03] active:scale-95 disabled:opacity-50"
             >

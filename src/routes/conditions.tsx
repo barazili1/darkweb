@@ -7,7 +7,6 @@ import imgPromo from "@/assets/cond-promo.png";
 import imgDeposit from "@/assets/cond-deposit.png";
 import imgId from "@/assets/cond-id.png";
 import gameCrash from "@/assets/game-crash.png";
-import gameMines from "@/assets/game-mines.png";
 import gameApple from "@/assets/game-apple.png";
 import { DragonMark, Particles, TopBar } from "@/components/vip/Chrome";
 import { PLATFORMS, getPlatform, saveUserId, type PlatformId } from "@/lib/session";
@@ -18,7 +17,7 @@ export const Route = createFileRoute("/conditions")({
       { title: "شروط التفعيل VIP — DRAGON VIP" },
       {
         name: "description",
-        content: "أكمل شروط التفعيل واختر لعبتك: Crash أو Gems Mines أو Apple of Fortune.",
+        content: "أكمل شروط التفعيل واختر لعبتك: Crash أو Apple of Fortune.",
       },
       { property: "og:title", content: "شروط التفعيل VIP — DRAGON VIP" },
       { property: "og:description", content: "خطوات تفعيل حساب VIP واختيار اللعبة." },
@@ -33,7 +32,6 @@ type GameId = "crash" | "mines" | "apple";
 
 const GAMES: { id: GameId; name: string; img: string; to: string }[] = [
   { id: "crash", name: "Crash", img: gameCrash, to: "/crash" },
-  { id: "mines", name: "Gems Mines", img: gameMines, to: "/mines" },
   { id: "apple", name: "Apple of Fortune", img: gameApple, to: "/apple" },
 ];
 
@@ -285,7 +283,7 @@ function ConditionsPage() {
             <p className="mt-1 text-right text-[11px] text-muted-foreground">
               لازم تختار لعبة واحدة لتشغيل الكاشف الخاص بها.
             </p>
-            <div className="mt-3 grid grid-cols-3 gap-2.5">
+            <div className="mt-3 grid grid-cols-2 gap-2.5">
               {GAMES.map((g) => {
                 const active = game === g.id;
                 return (
