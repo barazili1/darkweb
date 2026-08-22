@@ -283,7 +283,7 @@ function ConditionsPage() {
             <p className="mt-1 text-right text-[11px] text-muted-foreground">
               لازم تختار لعبة واحدة لتشغيل الكاشف الخاص بها.
             </p>
-            <div className="mt-3 grid grid-cols-3 gap-2.5">
+            <div className="mt-3 grid grid-cols-2 gap-2.5">
               {GAMES.map((g) => {
                 const active = game === g.id;
                 return (
