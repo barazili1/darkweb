@@ -2,7 +2,10 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Check, ChevronLeft, Loader2, ShieldCheck, TrendingUp, Zap } from "lucide-react";
 import bg from "@/assets/casino-bg.jpg";
-import platformArt from "@/assets/platform-generic.png";
+import logo1xbet from "@/assets/logo-1xbet.png";
+import logoGreenbet from "@/assets/logo-greenbet.jpg";
+
+const LOGOS: Record<string, string> = { "1xbet": logo1xbet, greenbet: logoGreenbet };
 import { OnlineUsers, Particles, TopBar } from "@/components/vip/Chrome";
 import { PLATFORMS, savePlatform, type PlatformId } from "@/lib/session";
 
@@ -109,13 +112,12 @@ function PlatformsPage() {
                   style={{ background: `${p.accent}1f` }}
                 >
                   <img
-                    src={platformArt}
-                    alt=""
-                    aria-hidden
+                    src={LOGOS[id]}
+                    alt={p.name}
                     loading="lazy"
                     width={512}
                     height={512}
-                    className="h-11 w-11 object-contain drop-shadow-[0_0_18px_var(--primary-glow)]"
+                    className="h-12 w-12 rounded-xl object-contain drop-shadow-[0_0_18px_var(--primary-glow)]"
                   />
                 </div>
 

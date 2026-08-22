@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { BadgeCheck, Check, ChevronLeft, Copy, Gamepad2, Lock } from "lucide-react";
+import { BadgeCheck, Check, ChevronLeft, Copy, Gamepad2, Lock, Sparkles } from "lucide-react";
 import imgDownload from "@/assets/cond-download.png";
 import imgTelegram from "@/assets/cond-telegram.png";
 import imgPromo from "@/assets/cond-promo.png";
@@ -37,7 +37,7 @@ const GAMES: { id: GameId; name: string; img: string; to: string }[] = [
   { id: "apple", name: "Apple of Fortune", img: gameApple, to: "/apple" },
 ];
 
-function Card({
+function Step({
   n,
   image,
   title,
@@ -45,6 +45,7 @@ function Card({
   children,
   delay,
   done,
+  last,
 }: {
   n: number;
   image: string;
@@ -53,50 +54,55 @@ function Card({
   children?: React.ReactNode;
   delay: number;
   done?: boolean;
+  last?: boolean;
 }) {
   return (
-    <article
-      className="animate-fade-up group relative rounded-[30px] border border-primary/25 bg-transparent p-4 text-right backdrop-blur-[2px] transition-all duration-300 hover:-translate-y-1 hover:border-primary/70 hover:shadow-[var(--glow-md)]"
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-x-8 -top-px h-px"
-        style={{
-          background: "linear-gradient(90deg,transparent,var(--primary-glow),transparent)",
-        }}
-      />
-      <div className="relative flex items-center gap-3.5">
-        <div className="relative shrink-0">
+    <li className="animate-fade-up relative flex gap-3" style={{ animationDelay: `${delay}ms` }}>
+      {/* rail */}
+      <div className="relative flex w-10 shrink-0 flex-col items-center">
+        <span
+          className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full border text-[12px] font-extrabold transition-colors ${
+            done
+              ? "border-success/60 bg-success/15 text-success"
+              : "border-primary/60 bg-primary/10 text-primary shadow-[var(--glow-sm)]"
+          }`}
+        >
+          {done ? <Check className="h-4 w-4" /> : n}
+        </span>
+        {!last && (
           <span
             aria-hidden
-            className="absolute inset-0 rounded-full bg-primary/25 blur-xl transition-opacity duration-300 group-hover:opacity-100"
+            className="absolute top-10 bottom-0 w-px"
+            style={{
+              background: "linear-gradient(180deg,var(--primary),transparent)",
+              opacity: 0.5,
+            }}
           />
+        )}
+      </div>
+
+      <article className="group relative mb-4 flex-1 overflow-hidden rounded-[26px] border border-primary/25 p-3.5 text-right transition-all duration-300 hover:border-primary/70 hover:shadow-[var(--glow-md)]">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -left-10 -top-10 h-24 w-24 rounded-full bg-primary/20 blur-2xl"
+        />
+        <div className="relative flex items-start gap-3">
+          <div className="min-w-0 flex-1">
+            <h2 className="neon-text text-[14px] font-extrabold text-foreground">{title}</h2>
+            <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">{desc}</p>
+          </div>
           <img
             src={image}
             alt={title}
             loading="lazy"
             width={512}
             height={512}
-            className="relative h-[86px] w-[86px] rounded-full border border-primary/40 object-contain p-2 transition-transform duration-300 group-hover:scale-110"
+            className="h-16 w-16 shrink-0 object-contain drop-shadow-[0_0_16px_var(--primary-glow)] transition-transform duration-300 group-hover:scale-110"
           />
-          <span
-            className={`absolute -bottom-1 -left-1 flex h-6 w-6 items-center justify-center rounded-full border border-background text-[10px] font-extrabold ${
-              done
-                ? "bg-success text-background"
-                : "gradient-primary text-primary-foreground shadow-[var(--glow-sm)]"
-            }`}
-          >
-            {done ? <Check className="h-3 w-3" /> : n}
-          </span>
         </div>
-        <div className="flex-1">
-          <h2 className="neon-text text-[15px] font-extrabold text-foreground">{title}</h2>
-          <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">{desc}</p>
-        </div>
-      </div>
-      {children && <div className="relative mt-3.5">{children}</div>}
-    </article>
+        {children && <div className="relative mt-3">{children}</div>}
+      </article>
+    </li>
   );
 }
 
@@ -139,21 +145,24 @@ function ConditionsPage() {
           right={<BadgeCheck className="mr-auto h-5 w-5 text-primary" />}
         />
 
+        {/* Hero */}
         <section className="px-4 pt-[50px]">
-          <div className="animate-fade-up relative overflow-hidden rounded-[30px] border border-primary/25 p-5 text-center">
+          <div className="animate-fade-up relative flex items-center gap-3 overflow-hidden rounded-[28px] border border-primary/30 p-4 text-right">
             <span
               aria-hidden
-              className="pointer-events-none absolute -top-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-primary/30 blur-3xl"
+              className="pointer-events-none absolute -right-10 -top-14 h-36 w-36 rounded-full bg-primary/25 blur-3xl"
             />
-            <DragonMark size={72} className="relative mx-auto animate-glow-pulse" />
-            <h2 className="neon-text relative mt-2 text-2xl font-extrabold text-foreground">
-              خطوات التفعيل
-            </h2>
-            <p className="relative mt-1 text-xs text-muted-foreground">
-              أكمل الشروط بالترتيب لتفعيل أداة {p.name}
-            </p>
-            <div className="relative mx-auto mt-4 max-w-xs">
-              <div className="h-[5px] w-full overflow-hidden rounded-full bg-secondary/70">
+            <div className="relative min-w-0 flex-1">
+              <span className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-[9px] font-bold tracking-[0.25em] text-primary">
+                <Sparkles className="h-3 w-3" /> VIP
+              </span>
+              <h1 className="neon-text mt-1.5 text-xl font-extrabold text-foreground">
+                خطوات التفعيل
+              </h1>
+              <p className="mt-1 text-[11px] text-muted-foreground">
+                أكمل الشروط بالترتيب لتفعيل أداة {p.name}
+              </p>
+              <div className="mt-3 h-[5px] w-full overflow-hidden rounded-full bg-secondary/70">
                 <div
                   className="h-full rounded-full transition-[width] duration-500"
                   style={{
@@ -163,106 +172,113 @@ function ConditionsPage() {
                   }}
                 />
               </div>
-              <p className="mt-2 text-[10px] tracking-[0.3em] text-muted-foreground">
+              <p className="mt-1.5 text-[10px] tracking-[0.3em] text-muted-foreground">
                 التقدم {progress}%
               </p>
             </div>
+            <DragonMark size={64} className="relative shrink-0 animate-glow-pulse" />
           </div>
         </section>
 
-        <section className="mt-5 space-y-3.5 px-4">
-          <Card
-            n={1}
-            delay={0}
-            image={imgDownload}
-            title="تحميل المنصة"
-            desc={`قم بتحميل وتثبيت التطبيق الرسمي لمنصة ${p.name} على هاتفك.`}
-          >
-            <div className="flex items-center justify-end gap-2 rounded-xl border border-border bg-secondary/40 px-3 py-2">
-              <span className="text-[10px] text-muted-foreground">Dragon VIP × {p.name}</span>
-              <DragonMark size={22} />
-            </div>
-          </Card>
-
-          <Card
-            n={2}
-            delay={80}
-            image={imgTelegram}
-            title="قناة التلجرام"
-            desc="انضم لقناتنا الحصرية للحصول على التحديثات والإشارات اليومية."
-          >
-            <a
-              href="https://t.me/"
-              target="_blank"
-              rel="noreferrer"
-              className="gradient-primary flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
+        <section className="mt-5 px-4">
+          <ul className="relative">
+            <Step
+              n={1}
+              delay={0}
+              image={imgDownload}
+              title="تحميل المنصة"
+              desc={`قم بتحميل وتثبيت التطبيق الرسمي لمنصة ${p.name} على هاتفك.`}
             >
-              انضمام الآن <ChevronLeft className="h-3.5 w-3.5" />
-            </a>
-          </Card>
+              <div className="flex items-center justify-end gap-2 rounded-xl border border-primary/25 px-3 py-2">
+                <span className="text-[10px] text-muted-foreground">Dragon VIP × {p.name}</span>
+                <DragonMark size={20} />
+              </div>
+            </Step>
 
-          <Card
-            n={3}
-            delay={160}
-            image={imgPromo}
-            title="البروموكود"
-            desc="سجل باستخدام البروموكود الخاص بنا للحصول على البونص:"
-            done={copied}
-          >
-            <button
-              onClick={copy}
-              className="flex w-full items-center justify-between gap-3 rounded-xl border border-input bg-secondary/60 px-3 py-2.5 transition-colors hover:bg-secondary"
+            <Step
+              n={2}
+              delay={70}
+              image={imgTelegram}
+              title="قناة التلجرام"
+              desc="انضم لقناتنا الحصرية للحصول على التحديثات والإشارات اليومية."
             >
-              <span className="neon-text text-lg font-extrabold tracking-[0.35em] text-primary">
-                A77N
-              </span>
-              <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                {copied ? "تم النسخ" : "نسخ"}
-                {copied ? (
-                  <Check className="h-4 w-4 text-success" />
-                ) : (
-                  <Copy className="h-4 w-4 text-primary" />
-                )}
-              </span>
-            </button>
-          </Card>
+              <a
+                href="https://t.me/"
+                target="_blank"
+                rel="noreferrer"
+                className="gradient-primary flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
+              >
+                انضمام الآن <ChevronLeft className="h-3.5 w-3.5" />
+              </a>
+            </Step>
 
-          <Card
-            n={4}
-            delay={240}
-            image={imgDeposit}
-            title="الإيداع"
-            desc="قم بعمل إيداع أولي بقيمة 250 جنيه أو 5 دولار لتفعيل الحساب."
-          >
-            <div className="grid grid-cols-2 gap-2">
-              <span className="rounded-xl border border-border bg-secondary/40 py-2 text-center text-[11px] font-bold text-gold">
-                250 EGP
-              </span>
-              <span className="rounded-xl border border-border bg-secondary/40 py-2 text-center text-[11px] font-bold text-gold">
-                5 USD
-              </span>
-            </div>
-          </Card>
+            <Step
+              n={3}
+              delay={140}
+              image={imgPromo}
+              title="البروموكود"
+              desc="سجل باستخدام البروموكود الخاص بنا للحصول على البونص:"
+              done={copied}
+            >
+              <button
+                onClick={copy}
+                className="flex w-full items-center justify-between gap-3 rounded-xl border border-primary/40 px-3 py-2.5 transition-colors hover:bg-primary/10"
+              >
+                <span className="neon-text text-lg font-extrabold tracking-[0.35em] text-primary">
+                  A77N
+                </span>
+                <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                  {copied ? "تم النسخ" : "نسخ"}
+                  {copied ? (
+                    <Check className="h-4 w-4 text-success" />
+                  ) : (
+                    <Copy className="h-4 w-4 text-primary" />
+                  )}
+                </span>
+              </button>
+            </Step>
 
-          <Card
-            n={5}
-            delay={320}
-            image={imgId}
-            title="الـ ID الخاص بك"
-            desc="أدخل الـ ID الخاص بك في المنصة للتأكد من التفعيل."
-            done={!!id.trim()}
-          >
-            <input
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-              inputMode="numeric"
-              placeholder="مثال: 1029384756"
-              className="w-full rounded-xl border border-input bg-background/60 px-3 py-2.5 text-right text-sm outline-none transition-shadow placeholder:text-muted-foreground focus:border-primary focus:shadow-[var(--glow-sm)]"
-            />
-          </Card>
+            <Step
+              n={4}
+              delay={210}
+              image={imgDeposit}
+              title="الإيداع"
+              desc="قم بعمل إيداع أولي بقيمة 250 جنيه أو 5 دولار لتفعيل الحساب."
+            >
+              <div className="grid grid-cols-2 gap-2">
+                <span className="rounded-xl border border-primary/25 py-2 text-center text-[11px] font-bold text-gold">
+                  250 EGP
+                </span>
+                <span className="rounded-xl border border-primary/25 py-2 text-center text-[11px] font-bold text-gold">
+                  5 USD
+                </span>
+              </div>
+            </Step>
+
+            <Step
+              n={5}
+              delay={280}
+              image={imgId}
+              title="الـ ID الخاص بك"
+              desc="أدخل الـ ID الخاص بك في المنصة للتأكد من التفعيل."
+              done={!!id.trim()}
+              last
+            >
+              <input
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+                inputMode="numeric"
+                placeholder="مثال: 1029384756"
+                className="w-full rounded-xl border border-input bg-transparent px-3 py-2.5 text-right text-sm outline-none transition-shadow placeholder:text-muted-foreground focus:border-primary focus:shadow-[var(--glow-sm)]"
+              />
+            </Step>
+          </ul>
 
           {/* Game selection */}
-          <div className="animate-fade-up rounded-[30px] border border-primary/25 p-4" style={{ animationDelay: "400ms" }}>
+          <div
+            className="animate-fade-up rounded-[28px] border border-primary/30 p-4"
+            style={{ animationDelay: "340ms" }}
+          >
             <h3 className="flex items-center justify-end gap-2 text-sm font-extrabold text-foreground">
               اختر اللعبة <Gamepad2 className="h-4 w-4 text-primary" />
             </h3>
@@ -278,8 +294,8 @@ function ConditionsPage() {
                     onClick={() => setGame(g.id)}
                     className={`flex flex-col items-center gap-2 rounded-2xl border p-3 transition-all duration-300 ${
                       active
-                        ? "neon-border border-primary bg-primary/15 -translate-y-1"
-                        : "border-border bg-background/50 hover:bg-secondary/50"
+                        ? "neon-border -translate-y-1 border-primary bg-primary/15"
+                        : "border-primary/25 hover:bg-primary/10"
                     }`}
                   >
                     <img
@@ -308,12 +324,12 @@ function ConditionsPage() {
               setLoading(true);
             }}
             disabled={!ready}
-            className="gradient-primary mt-2 w-full rounded-2xl py-4 text-sm font-extrabold text-primary-foreground shadow-[var(--glow-lg)] transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-40 disabled:shadow-none"
+            className="gradient-primary mt-4 w-full rounded-2xl py-4 text-sm font-extrabold text-primary-foreground shadow-[var(--glow-lg)] transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-40 disabled:shadow-none"
           >
             {ready ? "أكملت الشروط، ابدأ الربح" : "أكمل الـ ID واختر لعبة"}
           </button>
           {!ready && (
-            <p className="flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground">
+            <p className="mt-2 flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground">
               <Lock className="h-3 w-3" /> الزر يتفعل بعد إدخال الـ ID واختيار اللعبة
             </p>
           )}
