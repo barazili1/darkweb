@@ -201,7 +201,7 @@ function ConditionsPage() {
               desc="انضم لقناتنا الحصرية للحصول على التحديثات والإشارات اليومية."
             >
               <a
-                href="https://t.me/"
+                href="https://t.me/THEAGLE2"
                 target="_blank"
                 rel="noreferrer"
                 className="gradient-primary flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
