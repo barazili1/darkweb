@@ -56,44 +56,46 @@ function Card({
 }) {
   return (
     <article
-      className="glass animate-fade-up group relative overflow-hidden rounded-[26px] p-4 text-right transition-all duration-300 hover:-translate-y-1 hover:neon-border"
+      className="animate-fade-up group relative rounded-[30px] border border-primary/25 bg-transparent p-4 text-right backdrop-blur-[2px] transition-all duration-300 hover:-translate-y-1 hover:border-primary/70 hover:shadow-[var(--glow-md)]"
       style={{ animationDelay: `${delay}ms` }}
     >
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 w-1"
-        style={{ backgroundImage: "var(--gradient-primary)" }}
+        className="pointer-events-none absolute inset-x-8 -top-px h-px"
+        style={{
+          background: "linear-gradient(90deg,transparent,var(--primary-glow),transparent)",
+        }}
       />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -left-12 -top-12 h-32 w-32 rounded-full bg-primary/20 blur-3xl"
-      />
-      <div className="relative flex items-start gap-3">
-        <img
-          src={image}
-          alt={title}
-          loading="lazy"
-          width={512}
-          height={512}
-          className="h-[74px] w-[74px] shrink-0 rounded-2xl border border-border bg-secondary/40 object-contain p-1.5 shadow-[var(--glow-sm)] transition-transform duration-300 group-hover:scale-105"
-        />
+      <div className="relative flex items-center gap-3.5">
+        <div className="relative shrink-0">
+          <span
+            aria-hidden
+            className="absolute inset-0 rounded-full bg-primary/25 blur-xl transition-opacity duration-300 group-hover:opacity-100"
+          />
+          <img
+            src={image}
+            alt={title}
+            loading="lazy"
+            width={512}
+            height={512}
+            className="relative h-[86px] w-[86px] rounded-full border border-primary/40 object-contain p-2 transition-transform duration-300 group-hover:scale-110"
+          />
+          <span
+            className={`absolute -bottom-1 -left-1 flex h-6 w-6 items-center justify-center rounded-full border border-background text-[10px] font-extrabold ${
+              done
+                ? "bg-success text-background"
+                : "gradient-primary text-primary-foreground shadow-[var(--glow-sm)]"
+            }`}
+          >
+            {done ? <Check className="h-3 w-3" /> : n}
+          </span>
+        </div>
         <div className="flex-1">
-          <div className="flex items-center justify-end gap-2">
-            <h2 className="neon-text text-sm font-extrabold text-foreground">{title}</h2>
-            <span
-              className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-extrabold ${
-                done
-                  ? "bg-success text-background"
-                  : "gradient-primary text-primary-foreground shadow-[var(--glow-sm)]"
-              }`}
-            >
-              {done ? <Check className="h-3 w-3" /> : n}
-            </span>
-          </div>
+          <h2 className="neon-text text-[15px] font-extrabold text-foreground">{title}</h2>
           <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">{desc}</p>
         </div>
       </div>
-      {children && <div className="relative mt-3">{children}</div>}
+      {children && <div className="relative mt-3.5">{children}</div>}
     </article>
   );
 }
