@@ -4,7 +4,6 @@ import { Check, ChevronLeft, Loader2, ShieldCheck, TrendingUp, Zap } from "lucid
 import bg from "@/assets/casino-bg.jpg";
 import platformArt from "@/assets/platform-generic.png";
 import { OnlineUsers, Particles, TopBar } from "@/components/vip/Chrome";
-import { WinnersFeed } from "@/components/vip/WinnersFeed";
 import { PLATFORMS, savePlatform, type PlatformId } from "@/lib/session";
 
 export const Route = createFileRoute("/platforms")({
@@ -165,10 +164,6 @@ function PlatformsPage() {
           })}
         </section>
 
-        {/* Winners dashboard — very bottom */}
-        <section className="mt-28 px-4">
-          <WinnersFeed />
-        </section>
       </div>
 
       {connecting && (
