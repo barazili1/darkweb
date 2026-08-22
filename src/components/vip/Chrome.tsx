@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/dragon-logo.png";
 import { cn } from "@/lib/utils";
 
@@ -35,10 +35,18 @@ export function TopBar({
 }
 
 export function OnlineUsers() {
+  const [count, setCount] = useState(1000 + Math.floor(Math.random() * 1001));
+
+  useEffect(() => {
+    const tick = () => setCount(1000 + Math.floor(Math.random() * 1001));
+    const id = setInterval(tick, 1500);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <div className="flex items-center gap-1.5 rounded-full border border-border bg-secondary/50 px-2 py-1">
       <span className="animate-glow-pulse inline-block h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_var(--success)]" />
-      <span className="text-[10px] text-muted-foreground">14,520</span>
+      <span className="text-[10px] text-muted-foreground">{count.toLocaleString()}</span>
     </div>
   );
 }
