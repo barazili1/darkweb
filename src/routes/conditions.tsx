@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { BadgeCheck, Check, Copy } from "lucide-react";
+import { BadgeCheck, Check, ChevronLeft, Copy } from "lucide-react";
 import imgDownload from "@/assets/cond-download.png";
 import imgTelegram from "@/assets/cond-telegram.png";
 import imgPromo from "@/assets/cond-promo.png";
@@ -19,6 +19,8 @@ export const Route = createFileRoute("/conditions")({
       },
       { property: "og:title", content: "شروط التفعيل VIP — DRAGON VIP" },
       { property: "og:description", content: "خطوات تفعيل حساب VIP خطوة بخطوة." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ConditionsPage,
@@ -43,39 +45,44 @@ function Step({
 }) {
   return (
     <article
-      className="animate-fade-up glass relative overflow-hidden rounded-3xl p-4 transition-all duration-300 hover:-translate-y-1 hover:neon-border"
+      className="animate-fade-up relative pr-7 text-right"
       style={{ animationDelay: `${delay}ms` }}
     >
+      {/* timeline rail */}
       <span
         aria-hidden
-        className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full bg-primary/25 blur-3xl"
+        className="absolute right-[13px] top-8 -bottom-4 w-px bg-gradient-to-b from-primary/60 to-transparent"
       />
       <span
-        aria-hidden
-        className="gradient-primary pointer-events-none absolute inset-y-0 right-0 w-1"
-      />
-      <div className="relative flex items-start gap-4">
-        <div className="relative shrink-0">
+        className={`absolute right-0 top-2 flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-extrabold shadow-[var(--glow-sm)] ${
+          done
+            ? "bg-success text-background"
+            : "gradient-primary text-primary-foreground"
+        }`}
+      >
+        {done ? <Check className="h-3.5 w-3.5" /> : n}
+      </span>
+
+      <div className="glass group relative overflow-hidden rounded-3xl p-4 transition-all duration-300 hover:-translate-y-1 hover:neon-border">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -left-10 -top-10 h-28 w-28 rounded-full bg-primary/20 blur-3xl"
+        />
+        <div className="relative flex items-center gap-3">
           <img
             src={image}
             alt={title}
             loading="lazy"
             width={512}
             height={512}
-            className="h-20 w-20 rounded-2xl border border-border bg-secondary/50 object-contain p-1.5 shadow-[var(--glow-sm)]"
+            className="h-16 w-16 shrink-0 rounded-2xl border border-border bg-secondary/40 object-contain p-1 shadow-[var(--glow-sm)] transition-transform duration-300 group-hover:scale-105"
           />
-          <span className="gradient-primary absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-extrabold text-primary-foreground shadow-[var(--glow-sm)]">
-            {n}
-          </span>
-        </div>
-        <div className="flex-1 space-y-2 text-right">
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="neon-text text-base font-extrabold text-foreground">{title}</h2>
-            {done && <Check className="h-4 w-4 shrink-0 text-success" />}
+          <div className="flex-1">
+            <h2 className="neon-text text-sm font-extrabold text-foreground">{title}</h2>
+            <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">{desc}</p>
           </div>
-          <p className="text-xs leading-relaxed text-muted-foreground">{desc}</p>
-          {children}
         </div>
+        {children && <div className="relative mt-3">{children}</div>}
       </div>
     </article>
   );
@@ -123,29 +130,37 @@ function ConditionsPage() {
           right={<BadgeCheck className="mr-auto h-5 w-5 text-primary" />}
         />
 
-        <section className="px-4 pt-[50px] text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-widest text-primary">
-            5 خطوات فقط
-          </span>
-          <h2 className="neon-text mt-3 text-2xl font-extrabold text-foreground">خطوات التفعيل</h2>
-          <p className="mt-1 text-xs text-muted-foreground">
-            أكمل الخطوات بالترتيب لتفعيل أداة {p.name}
-          </p>
-
-          <div className="mx-auto mt-4 max-w-xs">
-            <div className="h-[3px] w-full overflow-hidden rounded-full bg-secondary">
-              <div
-                className="h-full rounded-full transition-[width] duration-500"
-                style={{
-                  width: `${progress}%`,
-                  backgroundImage: "var(--gradient-primary)",
-                  boxShadow: "var(--glow-sm)",
-                }}
-              />
-            </div>
-            <p className="mt-2 text-[10px] tracking-widest text-muted-foreground">
-              التقدم {progress}%
+        <section className="px-4 pt-[50px]">
+          <div className="glass animate-fade-up relative overflow-hidden rounded-3xl p-4 text-center">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -top-14 left-1/2 h-36 w-36 -translate-x-1/2 rounded-full bg-primary/30 blur-3xl"
+            />
+            <span className="relative inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-[0.25em] text-primary">
+              5 خطوات فقط
+            </span>
+            <h2 className="neon-text relative mt-3 text-2xl font-extrabold text-foreground">
+              خطوات التفعيل
+            </h2>
+            <p className="relative mt-1 text-xs text-muted-foreground">
+              أكمل الخطوات بالترتيب لتفعيل أداة {p.name}
             </p>
+
+            <div className="relative mx-auto mt-4 max-w-xs">
+              <div className="h-[5px] w-full overflow-hidden rounded-full bg-secondary/70">
+                <div
+                  className="h-full rounded-full transition-[width] duration-500"
+                  style={{
+                    width: `${progress}%`,
+                    backgroundImage: "var(--gradient-primary)",
+                    boxShadow: "var(--glow-sm)",
+                  }}
+                />
+              </div>
+              <p className="mt-2 text-[10px] tracking-[0.3em] text-muted-foreground">
+                التقدم {progress}%
+              </p>
+            </div>
           </div>
         </section>
 
@@ -174,9 +189,9 @@ function ConditionsPage() {
               href="https://t.me/"
               target="_blank"
               rel="noreferrer"
-              className="gradient-primary inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-105"
+              className="gradient-primary flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
             >
-              انضمام الآن
+              انضمام الآن <ChevronLeft className="h-3.5 w-3.5" />
             </a>
           </Step>
 
@@ -190,16 +205,19 @@ function ConditionsPage() {
           >
             <button
               onClick={copy}
-              className="flex w-full items-center justify-between gap-3 rounded-xl border border-input bg-secondary/60 px-3 py-2 transition-colors hover:bg-secondary"
+              className="flex w-full items-center justify-between gap-3 rounded-xl border border-input bg-secondary/60 px-3 py-2.5 transition-colors hover:bg-secondary"
             >
-              <span className="neon-text text-base font-extrabold tracking-[0.3em] text-primary">
+              <span className="neon-text text-lg font-extrabold tracking-[0.35em] text-primary">
                 A77N
               </span>
-              {copied ? (
-                <Check className="h-4 w-4 text-success" />
-              ) : (
-                <Copy className="h-4 w-4 text-primary" />
-              )}
+              <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                {copied ? "تم النسخ" : "نسخ"}
+                {copied ? (
+                  <Check className="h-4 w-4 text-success" />
+                ) : (
+                  <Copy className="h-4 w-4 text-primary" />
+                )}
+              </span>
             </button>
           </Step>
 
@@ -233,14 +251,14 @@ function ConditionsPage() {
               onChange={(e) => setId(e.target.value)}
               inputMode="numeric"
               placeholder="مثال: 1029384756"
-              className="w-full rounded-xl border border-input bg-background/60 px-3 py-2 text-right text-sm outline-none transition-shadow placeholder:text-muted-foreground focus:border-primary focus:shadow-[var(--glow-sm)]"
+              className="w-full rounded-xl border border-input bg-background/60 px-3 py-2.5 text-right text-sm outline-none transition-shadow placeholder:text-muted-foreground focus:border-primary focus:shadow-[var(--glow-sm)]"
             />
           </Step>
 
           <button
             onClick={submit}
             disabled={!id.trim()}
-            className="gradient-primary mt-2 w-full rounded-2xl py-4 text-sm font-extrabold text-primary-foreground shadow-[var(--glow-lg)] transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-40 disabled:shadow-none"
+            className="gradient-primary mt-3 w-full rounded-2xl py-4 text-sm font-extrabold text-primary-foreground shadow-[var(--glow-lg)] transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-40 disabled:shadow-none"
           >
             أكملت الشروط، ابدأ الربح
           </button>
