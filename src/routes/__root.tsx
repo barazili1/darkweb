@@ -120,8 +120,20 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+let hasBooted = false;
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  // On every page load/refresh, always start from the splash screen.
+  useEffect(() => {
+    if (hasBooted) return;
+    hasBooted = true;
+    if (window.location.pathname !== "/") {
+      router.navigate({ to: "/", replace: true });
+    }
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
