@@ -123,7 +123,7 @@ function Condition({
 
 function ConditionsPage() {
   const navigate = useNavigate();
-  const [platform, setPlatform] = useState<PlatformId>("1xbet");
+  const [platform, setPlatform] = useState<PlatformId>("fansport");
   const [copied, setCopied] = useState(false);
   const [id, setId] = useState("");
   const [game, setGame] = useState<GameId | null>(null);
