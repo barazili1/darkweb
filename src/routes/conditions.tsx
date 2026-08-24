@@ -129,7 +129,7 @@ function ConditionsPage() {
   const ready = !!id.trim() && !!game;
 
   const copy = () => {
-    navigator.clipboard?.writeText("A77N");
+    navigator.clipboard?.writeText(p.promo);
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
   };
