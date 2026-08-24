@@ -9,9 +9,9 @@ import { fetchCrashOdd, isVip } from "@/lib/firebase";
 export const Route = createFileRoute("/crash")({
   head: () => ({
     meta: [
-      { title: "كاشف لعبة الطيارة Crash — DRAGON VIP" },
+      { title: "كاشف لعبة الطيارة Crash — PROFESSOR OFFICIAL" },
       { name: "description", content: "توقع أودد لعبة الطيارة Crash مباشرة بأسلوب VIP." },
-      { property: "og:title", content: "كاشف لعبة الطيارة Crash — DRAGON VIP" },
+      { property: "og:title", content: "كاشف لعبة الطيارة Crash — PROFESSOR OFFICIAL" },
       { property: "og:description", content: "توقع الأودد قبل الانفجار في لعبة الطيارة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

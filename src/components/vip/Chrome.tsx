@@ -26,7 +26,7 @@ export function TopBar({
     <header className="glass sticky top-0 z-40 flex items-center justify-between gap-2 px-3 py-2.5">
       <div className="flex items-center gap-2">
         <DragonMark size={26} />
-        <span className="neon-text text-[11px] font-bold tracking-widest">DRAGON VIP</span>
+        <span className="neon-text text-[11px] font-bold tracking-widest">PROFESSOR OFFICIAL</span>
       </div>
       <h1 className="neon-text text-sm font-semibold">{title}</h1>
       <div className="min-w-[74px] text-left">{right}</div>

@@ -9,9 +9,9 @@ import { buildMatrix, fetchAppleMatrix, isVip, resetAppleMatrix, type Matrix } f
 export const Route = createFileRoute("/apple")({
   head: () => ({
     meta: [
-      { title: "كاشف لعبة التفاحة — DRAGON VIP" },
+      { title: "كاشف لعبة التفاحة — PROFESSOR OFFICIAL" },
       { name: "description", content: "شبكة كشف الخانات الآمنة في لعبة التفاحة بأسلوب VIP." },
-      { property: "og:title", content: "كاشف لعبة التفاحة — DRAGON VIP" },
+      { property: "og:title", content: "كاشف لعبة التفاحة — PROFESSOR OFFICIAL" },
       { property: "og:description", content: "اكشف الخانات الآمنة في لعبة التفاحة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
