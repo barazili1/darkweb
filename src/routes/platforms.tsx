@@ -36,14 +36,6 @@ const STATS = [
   { label: "سحب اليوم", value: "$82K", icon: Zap },
 ];
 
-const TICKER = [
-  "سحب ناجح · $420",
-  "تفعيل VIP جديد",
-  "دقة الكشف 97%",
-  "سحب ناجح · 2,500 EGP",
-  "سيرفر مستقر",
-];
-
 function PlatformsPage() {
   const navigate = useNavigate();
   const [connecting, setConnecting] = useState(false);
@@ -66,105 +58,101 @@ function PlatformsPage() {
   };
 
   return (
-    <main className="page-bg screen-frame relative min-h-screen pb-16">
+    <main className="page-bg relative min-h-screen pb-16">
       <img
         src={bg}
         alt=""
         aria-hidden
         loading="lazy"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-10 blur-3xl"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.07] blur-3xl"
       />
       <Particles />
       <div className="relative z-10">
         <TopBar title="اختيار المنصة" right={<OnlineUsers />} />
 
-        {/* ticker */}
-        <div className="mt-[50px] overflow-hidden border-y border-primary/20 py-1.5">
-          <div className="animate-marquee flex w-max gap-8 whitespace-nowrap">
-            {[...TICKER, ...TICKER].map((t, i) => (
-              <span
-                key={`${t}-${i}`}
-                className="flex items-center gap-1.5 text-[9px] tracking-widest text-muted-foreground"
-              >
-                <span className="h-1 w-1 rounded-full bg-primary shadow-[var(--glow-sm)]" />
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
-
         {/* Hero */}
-        <section className="animate-rise px-5 pt-6 text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 px-3 py-1 text-[9px] font-bold tracking-[0.35em] text-primary">
-            <Sparkles className="h-3 w-3" /> VIP ACCESS
+        <section className="animate-rise px-6 pb-2 pt-[62px] text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/35 px-3.5 py-1 text-[8.5px] font-bold tracking-[0.45em] text-primary/90">
+            <Sparkles className="h-3 w-3" /> VIP
           </span>
-          <h2 className="text-shimmer mt-3 text-[1.7rem] font-extrabold leading-tight">
+          <h2 className="text-shimmer mt-4 text-[1.75rem] font-extrabold leading-tight">
             اختر منصتك
           </h2>
-          <p className="mx-auto mt-1.5 max-w-[270px] text-[11px] leading-relaxed text-muted-foreground">
+          <div className="mx-auto mt-3 flex w-40 items-center gap-2">
+            <span className="hairline flex-1" />
+            <span className="h-1 w-1 rotate-45 bg-primary shadow-[var(--glow-sm)]" />
+            <span className="hairline flex-1" />
+          </div>
+          <p className="mx-auto mt-3 max-w-[260px] text-[11px] leading-relaxed text-muted-foreground">
             حدد المنصة التي تلعب عليها لتشغيل أداة الكشف الخاصة بك
           </p>
         </section>
 
-        {/* Platform cards — side by side */}
-        <section className="mt-6 grid grid-cols-2 gap-3 px-4">
+        {/* Platform cards */}
+        <section className="mt-7 grid grid-cols-2 gap-3.5 px-4">
           {(Object.keys(PLATFORMS) as PlatformId[]).map((id, i) => {
             const p = PLATFORMS[id];
             return (
               <button
                 key={id}
                 onClick={() => choose(id)}
-                className="card-elite animate-rise group relative flex flex-col items-center overflow-hidden rounded-[28px] px-3 pb-3 pt-6 text-center transition-all duration-300 hover:-translate-y-2 hover:border-primary/70 hover:shadow-[var(--glow-md)] active:scale-[0.97]"
-                style={{ animationDelay: `${i * 120}ms` }}
+                className="card-elite sheen-on-hover animate-rise group relative flex flex-col items-center rounded-[30px] px-3 pb-3.5 pt-7 text-center transition-all duration-500 hover:-translate-y-2 hover:border-primary/70 hover:shadow-[var(--glow-lg)] active:scale-[0.97]"
+                style={{ animationDelay: `${i * 130}ms` }}
               >
+                {/* index chip */}
+                <span className="absolute right-3.5 top-3.5 text-[9px] font-bold tracking-[0.25em] text-muted-foreground/50">
+                  0{i + 1}
+                </span>
+
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -top-16 left-1/2 h-36 w-36 -translate-x-1/2 rounded-full blur-3xl transition-opacity duration-300 group-hover:opacity-70"
-                  style={{ background: p.accent, opacity: 0.3 }}
-                />
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-8 top-0 h-px"
-                  style={{
-                    background: `linear-gradient(90deg,transparent,${p.accent},transparent)`,
-                  }}
+                  className="pointer-events-none absolute -top-14 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full opacity-25 blur-3xl transition-opacity duration-500 group-hover:opacity-60"
+                  style={{ background: p.accent }}
                 />
 
-                <div className="relative flex h-20 w-20 items-center justify-center">
+                {/* logo medallion */}
+                <div className="relative flex h-[74px] w-[74px] items-center justify-center">
                   <span
                     aria-hidden
-                    className="absolute inset-0 rounded-full opacity-70 blur-md"
-                    style={{ background: `${p.accent}33` }}
+                    className="absolute inset-0 rounded-full border"
+                    style={{ borderColor: `${p.accent}66` }}
                   />
-                  <span className="ring-conic absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 group-hover:animate-spin-slow group-hover:opacity-100" />
+                  <span className="ring-conic absolute -inset-1 rounded-full opacity-0 transition-opacity duration-500 group-hover:animate-spin-slow group-hover:opacity-90" />
+                  <span
+                    aria-hidden
+                    className="absolute inset-2 rounded-full blur-md"
+                    style={{ background: `${p.accent}2e` }}
+                  />
                   <img
                     src={LOGOS[id]}
                     alt={p.name}
                     loading="lazy"
                     width={512}
                     height={512}
-                    className="relative h-12 w-12 rounded-xl object-contain drop-shadow-[0_0_18px_var(--primary-glow)] transition-transform duration-300 group-hover:scale-110"
+                    className="relative h-11 w-11 rounded-lg object-contain drop-shadow-[0_0_18px_var(--primary-glow)] transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
 
+                <h3 className="mt-4 text-[17px] font-extrabold leading-none tracking-wide text-foreground">
+                  {p.name}
+                </h3>
                 <span
-                  className="relative mt-3 inline-block rounded-md px-2 py-0.5 text-[9px] font-extrabold tracking-[0.25em]"
-                  style={{ color: p.accent, background: `${p.accent}26` }}
+                  className="mt-2 inline-block rounded-full px-2.5 py-0.5 text-[8.5px] font-extrabold tracking-[0.3em]"
+                  style={{ color: p.accent, background: `${p.accent}1f` }}
                 >
                   {p.short}
                 </span>
-                <h3 className="neon-text mt-1.5 text-[17px] font-extrabold leading-tight text-foreground">
-                  {p.name}
-                </h3>
-                <p className="mt-1 line-clamp-2 text-[10px] leading-relaxed text-muted-foreground">
+                <p className="mt-2.5 line-clamp-2 text-[10px] leading-relaxed text-muted-foreground">
                   {p.tagline}
                 </p>
 
-                <span className="relative mt-3 flex items-center justify-center gap-1 text-[9px] text-muted-foreground">
-                  <ShieldCheck className="h-3 w-3 text-primary" /> موثوقة · سحب فوري
+                <span className="hairline my-3.5 w-full" />
+
+                <span className="flex items-center justify-center gap-1 text-[9px] text-muted-foreground/80">
+                  <ShieldCheck className="h-3 w-3 text-primary" /> سحب فوري
                 </span>
 
-                <span className="gradient-primary relative mt-3 flex w-full items-center justify-center gap-1 rounded-2xl py-2.5 text-[10px] font-extrabold tracking-widest text-primary-foreground shadow-[var(--glow-sm)] transition-transform duration-300 group-hover:scale-[1.03]">
+                <span className="mt-3 flex w-full items-center justify-center gap-1 rounded-2xl border border-primary/45 py-2.5 text-[10px] font-extrabold tracking-[0.2em] text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[var(--glow-md)]">
                   اتصال <ChevronLeft className="h-3 w-3" />
                 </span>
               </button>
@@ -172,42 +160,54 @@ function PlatformsPage() {
           })}
         </section>
 
-        {/* Stats strip */}
-        <section className="mt-6 grid grid-cols-3 gap-2 px-4">
+        {/* Stats — elegant single strip */}
+        <section
+          className="card-elite animate-rise mx-4 mt-6 grid grid-cols-3 rounded-[26px] py-4"
+          style={{ animationDelay: "340ms" }}
+        >
           {STATS.map((s, i) => {
             const Icon = s.icon;
             return (
               <div
                 key={s.label}
-                className="card-elite animate-rise flex flex-col items-center rounded-2xl px-2 py-3 text-center"
-                style={{ animationDelay: `${320 + i * 90}ms` }}
+                className={`flex flex-col items-center px-2 text-center ${
+                  i < STATS.length - 1 ? "border-l border-primary/15" : ""
+                }`}
               >
-                <Icon className="mb-1 h-3.5 w-3.5 text-primary" />
-                <p className="neon-text text-base font-extrabold text-primary">{s.value}</p>
-                <p className="mt-0.5 text-[9px] tracking-wide text-muted-foreground">{s.label}</p>
+                <Icon className="mb-1.5 h-3.5 w-3.5 text-primary/80" />
+                <p className="neon-text text-[17px] font-extrabold leading-none text-primary">
+                  {s.value}
+                </p>
+                <p className="mt-1.5 text-[9px] tracking-wider text-muted-foreground">{s.label}</p>
               </div>
             );
           })}
         </section>
+
+        <p className="mt-6 text-center text-[8px] tracking-[0.5em] text-muted-foreground/45">
+          SECURE · ENCRYPTED · VIP
+        </p>
       </div>
 
       {connecting && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 px-6 backdrop-blur-xl">
-          <div className="card-elite animate-rise w-full max-w-sm rounded-[30px] p-6 shadow-[var(--glow-lg)]">
-            <div className="mb-5 flex flex-col items-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/85 px-6 backdrop-blur-xl">
+          <div className="card-elite animate-rise w-full max-w-sm rounded-[32px] p-7 shadow-[var(--glow-lg)]">
+            <div className="mb-6 flex flex-col items-center">
               <div className="relative flex h-24 w-24 items-center justify-center">
                 <span className="ring-conic animate-spin-slow absolute inset-0 rounded-full" />
+                <span className="absolute inset-3 rounded-full border border-dashed border-primary/25" />
                 <img
                   src={dragonLogo}
                   alt="PROFESSOR OFFICIAL"
                   width={256}
                   height={256}
-                  className="h-16 w-16 animate-glow-pulse object-contain drop-shadow-[0_0_28px_var(--primary-glow)]"
+                  className="h-14 w-14 animate-breathe object-contain drop-shadow-[0_0_28px_var(--primary-glow)]"
                 />
               </div>
-              <p className="text-shimmer mt-2 text-[11px] font-extrabold tracking-[0.3em]">
+              <p className="text-shimmer mt-3 text-[10.5px] font-extrabold tracking-[0.35em]">
                 PROFESSOR OFFICIAL
               </p>
+              <span className="hairline mt-3 w-24" />
             </div>
             <div className="space-y-2.5">
               {STEPS.slice(0, step + 1).map((s, i) => {
@@ -215,7 +215,7 @@ function PlatformsPage() {
                 return (
                   <p
                     key={s}
-                    className={`animate-fade-up flex items-center gap-2 rounded-xl border border-primary/20 px-3 py-2 text-[11px] ${
+                    className={`animate-fade-up flex items-center gap-2.5 rounded-2xl border border-primary/20 px-3.5 py-2.5 text-[11px] ${
                       finished && i === STEPS.length - 1 ? "text-success" : "text-foreground"
                     }`}
                   >
