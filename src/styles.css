@@ -296,3 +296,56 @@
     inset 0 1px 0 oklch(1 0 0 / 8%),
     0 18px 45px -25px oklch(0.6 0.26 320 / 70%);
 }
+
+/* ── v6 elite primitives ─────────────────────────────── */
+@keyframes orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.35; transform: scale(0.94); }
+  50% { opacity: 0.85; transform: scale(1.06); }
+}
+
+@keyframes sheen {
+  0% { transform: translateX(-140%) skewX(-18deg); }
+  100% { transform: translateX(240%) skewX(-18deg); }
+}
+
+@keyframes letter-in {
+  from { opacity: 0; transform: translateY(18px) rotateX(60deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+@utility animate-orbit {
+  animation: orbit 12s linear infinite;
+}
+
+@utility animate-breathe {
+  animation: breathe 4.5s ease-in-out infinite;
+}
+
+@utility animate-letter {
+  animation: letter-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility sheen-on-hover {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, oklch(1 0 0 / 14%), transparent);
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  &:hover::after {
+    animation: sheen 0.9s ease-out;
+  }
+}
+
+@utility hairline {
+  background: linear-gradient(90deg, transparent, oklch(0.72 0.22 320 / 55%), transparent);
+  height: 1px;
+}
