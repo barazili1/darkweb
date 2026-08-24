@@ -4,7 +4,7 @@ import { Check, ChevronLeft, Loader2, ShieldCheck, Sparkles, TrendingUp, Zap } f
 import bg from "@/assets/casino-bg.jpg";
 import logoFansport from "@/assets/logo-fansport.png";
 import logoGreenbet from "@/assets/logo-greenbet.jpg";
-import dragonLogo from "@/assets/dragon-logo.png";
+import dragonLogo from "@/assets/darkweb-logo.png";
 import { OnlineUsers, Particles, TopBar } from "@/components/vip/Chrome";
 import { PLATFORMS, savePlatform, type PlatformId } from "@/lib/session";
 
@@ -13,9 +13,9 @@ const LOGOS: Record<string, string> = { fansport: logoFansport, greenbet: logoGr
 export const Route = createFileRoute("/platforms")({
   head: () => ({
     meta: [
-      { title: "اختيار المنصة — PROFESSOR OFFICIAL" },
+      { title: "اختيار المنصة — DARK WEB" },
       { name: "description", content: "اختر منصتك 1XBET أو GREENBET لبدء تفعيل حساب VIP." },
-      { property: "og:title", content: "اختيار المنصة — PROFESSOR OFFICIAL" },
+      { property: "og:title", content: "اختيار المنصة — DARK WEB" },
       { property: "og:description", content: "اختر منصتك لبدء تفعيل حساب VIP." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -198,14 +198,14 @@ function PlatformsPage() {
                 <span className="absolute inset-3 rounded-full border border-dashed border-primary/25" />
                 <img
                   src={dragonLogo}
-                  alt="PROFESSOR OFFICIAL"
+                  alt="DARK WEB"
                   width={256}
                   height={256}
                   className="h-14 w-14 animate-breathe object-contain drop-shadow-[0_0_28px_var(--primary-glow)]"
                 />
               </div>
               <p className="text-shimmer mt-3 text-[10.5px] font-extrabold tracking-[0.35em]">
-                PROFESSOR OFFICIAL
+                DARK WEB
               </p>
               <span className="hairline mt-3 w-24" />
             </div>
