@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Apple, Bomb, Play, RotateCcw, Sparkles, Target } from "lucide-react";
+import { Bomb, Play, RotateCcw, Sparkles, Target } from "lucide-react";
+import appleArt from "@/assets/game-apple.png";
 import { Particles, TopBar } from "@/components/vip/Chrome";
 import { WinnersFeed } from "@/components/vip/WinnersFeed";
 import { getPlatform, getUserId, PLATFORMS } from "@/lib/session";
@@ -95,15 +96,23 @@ function ApplePage() {
               aria-hidden
               className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/25 blur-3xl"
             />
-            <div className="relative flex items-center justify-between">
-              <div>
+            <div className="relative flex items-center gap-3">
+              <img
+                src={appleArt}
+                alt="لعبة التفاحة"
+                loading="lazy"
+                width={816}
+                height={816}
+                className="h-14 w-14 shrink-0 object-contain drop-shadow-[0_0_16px_var(--primary-glow)]"
+              />
+              <div className="min-w-0 flex-1">
                 <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
                   <Sparkles className="h-3.5 w-3.5" /> Predictor
                 </p>
-                <h1 className="neon-text mt-1 text-2xl font-extrabold">Apple of Fortune</h1>
+                <h1 className="neon-text mt-0.5 truncate text-2xl font-extrabold">Apple of Fortune</h1>
               </div>
               {platform && (
-                <span className="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-[10px] font-bold text-primary">
+                <span className="shrink-0 rounded-full border border-primary/50 bg-primary/10 px-3 py-1 text-[10px] font-bold text-primary">
                   {platform}
                 </span>
               )}
@@ -113,7 +122,7 @@ function ApplePage() {
                 الدقة <b className="block text-[11px] text-primary">97%</b>
               </span>
               <span className="text-[9px] text-muted-foreground">
-                الصفوف <b className="block text-[11px] text-primary">10</b>
+                الصفوف <b className="block text-[11px] text-primary">{revealed}/10</b>
               </span>
               <span className="text-[9px] text-muted-foreground">
                 الحالة
@@ -126,6 +135,10 @@ function ApplePage() {
 
           {/* Grid */}
           <div className="glass relative space-y-1.5 rounded-3xl p-2.5">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent"
+            />
             {order.map((r) => {
               const open = revealed > r;
               const active = running && revealed === r;
@@ -165,9 +178,11 @@ function ApplePage() {
                         >
                           {open ? (
                             isSafe ? (
-                              <Apple
-                                className="h-5 w-5 text-gold drop-shadow-[0_0_10px_var(--gold)]"
-                                fill="currentColor"
+                              <img
+                                src={appleArt}
+                                alt="آمنة"
+                                loading="lazy"
+                                className="h-6 w-6 object-contain drop-shadow-[0_0_8px_var(--primary-glow)]"
                               />
                             ) : (
                               <Bomb className="h-4 w-4 text-muted-foreground/70" />
@@ -186,6 +201,7 @@ function ApplePage() {
               <Target className="h-3 w-3 text-primary" /> يبدأ الكشف من 1.23x للأعلى
             </p>
           </div>
+
 
           {/* Controls */}
           <div className="mt-4 grid grid-cols-2 gap-3">
