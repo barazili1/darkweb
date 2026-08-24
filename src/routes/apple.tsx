@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Apple, Bomb, Play, RotateCcw, Sparkles, Target } from "lucide-react";
+import { Bomb, Play, RotateCcw, Sparkles, Target } from "lucide-react";
+import appleArt from "@/assets/game-apple.png";
 import { Particles, TopBar } from "@/components/vip/Chrome";
 import { WinnersFeed } from "@/components/vip/WinnersFeed";
 import { getPlatform, getUserId, PLATFORMS } from "@/lib/session";
