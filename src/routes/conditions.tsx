@@ -14,12 +14,12 @@ import { PLATFORMS, getPlatform, saveUserId, type PlatformId } from "@/lib/sessi
 export const Route = createFileRoute("/conditions")({
   head: () => ({
     meta: [
-      { title: "شروط التفعيل VIP — DRAGON VIP" },
+      { title: "شروط التفعيل VIP — PROFESSOR OFFICIAL" },
       {
         name: "description",
         content: "أكمل شروط التفعيل واختر لعبتك: Crash أو Apple of Fortune.",
       },
-      { property: "og:title", content: "شروط التفعيل VIP — DRAGON VIP" },
+      { property: "og:title", content: "شروط التفعيل VIP — PROFESSOR OFFICIAL" },
       { property: "og:description", content: "خطوات تفعيل حساب VIP واختيار اللعبة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -340,7 +340,7 @@ function ConditionsPage() {
             <span className="absolute inset-0 animate-spin rounded-full border-2 border-transparent border-l-primary-glow border-t-primary shadow-[var(--glow-md)]" />
             <DragonMark size={82} className="animate-glow-pulse" />
           </div>
-          <p className="neon-text text-sm font-extrabold">DRAGON VIP</p>
+          <p className="neon-text text-sm font-extrabold">PROFESSOR OFFICIAL</p>
           <p className="text-xs tracking-widest text-muted-foreground">جارٍ تفعيل الحساب VIP...</p>
         </div>
       )}

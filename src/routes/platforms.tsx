@@ -14,9 +14,9 @@ import { PLATFORMS, savePlatform, type PlatformId } from "@/lib/session";
 export const Route = createFileRoute("/platforms")({
   head: () => ({
     meta: [
-      { title: "اختيار المنصة — DRAGON VIP" },
+      { title: "اختيار المنصة — PROFESSOR OFFICIAL" },
       { name: "description", content: "اختر منصتك 1XBET أو GREENBET لبدء تفعيل حساب VIP." },
-      { property: "og:title", content: "اختيار المنصة — DRAGON VIP" },
+      { property: "og:title", content: "اختيار المنصة — PROFESSOR OFFICIAL" },
       { property: "og:description", content: "اختر منصتك لبدء تفعيل حساب VIP." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -177,7 +177,7 @@ function PlatformsPage() {
             <div className="mb-5 flex flex-col items-center">
               <img
                 src={dragonLogo}
-                alt="DRAGON VIP"
+                alt="PROFESSOR OFFICIAL"
                 width={256}
                 height={256}
                 className="h-20 w-20 animate-pulse object-contain drop-shadow-[0_0_28px_var(--primary-glow)]"

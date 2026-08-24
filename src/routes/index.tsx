@@ -6,12 +6,12 @@ import { DragonMark, Particles } from "@/components/vip/Chrome";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "DRAGON VIP — أداة كشف لعبة التفاحة" },
+      { title: "PROFESSOR OFFICIAL — أداة كشف لعبة التفاحة" },
       {
         name: "description",
-        content: "منصة DRAGON VIP لكشف مربعات لعبة التفاحة على 1XBET و GREENBET بتفعيل VIP.",
+        content: "منصة PROFESSOR OFFICIAL لكشف مربعات لعبة التفاحة على 1XBET و GREENBET بتفعيل VIP.",
       },
-      { property: "og:title", content: "DRAGON VIP" },
+      { property: "og:title", content: "PROFESSOR OFFICIAL" },
       { property: "og:description", content: "تفعيل VIP وكشف لعبة التفاحة بأناقة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
