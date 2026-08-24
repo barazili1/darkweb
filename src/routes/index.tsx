@@ -78,13 +78,13 @@ function Splash() {
           <DragonMark size={118} className="relative" />
         </div>
 
-        <h1 className="neon-text mt-8 text-[2rem] font-extrabold leading-none tracking-[0.32em] text-foreground">
-          DRAGON
+        <h1 className="neon-text mt-8 text-[1.35rem] font-extrabold leading-none tracking-[0.22em] text-foreground">
+          PROFESSOR
         </h1>
         <div className="mt-2 flex items-center gap-3">
-          <span className="h-px w-10 bg-gradient-to-l from-primary to-transparent" />
-          <span className="text-sm font-bold tracking-[0.6em] text-primary">VIP</span>
-          <span className="h-px w-10 bg-gradient-to-r from-primary to-transparent" />
+          <span className="h-px w-8 bg-gradient-to-l from-primary to-transparent" />
+          <span className="text-xs font-bold tracking-[0.42em] text-primary">OFFICIAL</span>
+          <span className="h-px w-8 bg-gradient-to-r from-primary to-transparent" />
         </div>
       </div>
 
