@@ -2,13 +2,13 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Check, ChevronLeft, Loader2, ShieldCheck, Sparkles, TrendingUp, Zap } from "lucide-react";
 import bg from "@/assets/casino-bg.jpg";
-import logo1xbet from "@/assets/logo-1xbet.png";
+import logoFansport from "@/assets/logo-fansport.png";
 import logoGreenbet from "@/assets/logo-greenbet.jpg";
 import dragonLogo from "@/assets/dragon-logo.png";
 import { OnlineUsers, Particles, TopBar } from "@/components/vip/Chrome";
 import { PLATFORMS, savePlatform, type PlatformId } from "@/lib/session";
 
-const LOGOS: Record<string, string> = { "1xbet": logo1xbet, greenbet: logoGreenbet };
+const LOGOS: Record<string, string> = { fansport: logoFansport, greenbet: logoGreenbet };
 
 export const Route = createFileRoute("/platforms")({
   head: () => ({
@@ -96,7 +96,7 @@ function PlatformsPage() {
               <button
                 key={id}
                 onClick={() => choose(id)}
-                className="card-elite sheen-on-hover animate-rise group relative flex items-center gap-4 rounded-[28px] p-4 text-right transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/70 hover:shadow-[var(--glow-lg)] active:scale-[0.98]"
+                className="glass sheen-on-hover backdrop-blur-2xl bg-transparent animate-rise group relative flex items-center gap-4 rounded-[28px] p-4 text-right transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/70 hover:shadow-[var(--glow-lg)] active:scale-[0.98]"
                 style={{ animationDelay: `${i * 130}ms` }}
               >
                 <span

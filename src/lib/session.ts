@@ -1,4 +1,4 @@
-export type PlatformId = "1xbet" | "greenbet";
+export type PlatformId = "fansport" | "greenbet";
 
 const KEY_PLATFORM = "dragonvip:platform";
 const KEY_ID = "dragonvip:userid";
@@ -7,21 +7,21 @@ export const PLATFORMS: Record<
   PlatformId,
   { name: string; tagline: string; accent: string; short: string; promo: string; link: string }
 > = {
-  "1xbet": {
-    name: "1XBET",
+  fansport: {
+    name: "FANSPORT",
     tagline: "المنصة العالمية الأولى",
     accent: "oklch(0.55 0.2 250)",
-    short: "1X",
-    promo: "A77N",
-    link: "https://1xbet.com/",
+    short: "FS",
+    promo: "X200",
+    link: "https://lxzsdfgw.xyz/L?tag=d_5957194m_105936c_&site=5957194&ad=105936&r=ar",
   },
   greenbet: {
     name: "GREENBET",
     tagline: "أرباح سريعة وسحب فوري",
     accent: "oklch(0.7 0.2 150)",
     short: "GB",
-    promo: "A77A",
-    link: "https://refpa79184.com/L?tag=d_5936276m_132250c_&site=5936276&ad=132250",
+    promo: "RG200",
+    link: "https://refpa79184.com/L?tag=d_5931379m_188307c_&site=5931379&ad=188307",
   },
 };
 
@@ -30,9 +30,9 @@ export function savePlatform(id: PlatformId) {
 }
 
 export function getPlatform(): PlatformId {
-  if (typeof window === "undefined") return "1xbet";
+  if (typeof window === "undefined") return "fansport";
   const v = sessionStorage.getItem(KEY_PLATFORM);
-  return v === "greenbet" ? "greenbet" : "1xbet";
+  return v === "greenbet" ? "greenbet" : "fansport";
 }
 
 export function saveUserId(id: string) {
