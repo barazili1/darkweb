@@ -187,10 +187,14 @@ function ConditionsPage() {
               title="تحميل المنصة"
               desc={`قم بتحميل وتثبيت التطبيق الرسمي لمنصة ${p.name} على هاتفك.`}
             >
-              <div className="flex items-center justify-end gap-2 rounded-xl border border-primary/25 px-3 py-2">
-                <span className="text-[10px] text-muted-foreground">Dragon VIP × {p.name}</span>
-                <DragonMark size={20} />
-              </div>
+              <a
+                href={p.link}
+                target="_blank"
+                rel="noreferrer"
+                className="gradient-primary flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
+              >
+                تحميل {p.name} <ChevronLeft className="h-3.5 w-3.5" />
+              </a>
             </Step>
 
             <Step
