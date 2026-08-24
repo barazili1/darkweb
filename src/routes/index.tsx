@@ -83,8 +83,8 @@ function Splash() {
           <svg viewBox="0 0 196 196" className="absolute inset-0 h-full w-full -rotate-90">
             <defs>
               <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="oklch(0.55 0.26 315)" />
-                <stop offset="100%" stopColor="oklch(0.78 0.2 330)" />
+                <stop offset="0%" stopColor="oklch(0.55 0.26 25)" />
+                <stop offset="100%" stopColor="oklch(0.78 0.2 25)" />
               </linearGradient>
             </defs>
             <circle
@@ -92,7 +92,7 @@ function Splash() {
               cy="98"
               r={R}
               fill="none"
-              stroke="oklch(0.7 0.2 320 / 12%)"
+              stroke="oklch(0.7 0.2 25 / 12%)"
               strokeWidth="2"
             />
             <circle
@@ -107,7 +107,7 @@ function Splash() {
               strokeDashoffset={C - (C * progress) / 100}
               style={{
                 transition: "stroke-dashoffset 200ms linear",
-                filter: "drop-shadow(0 0 8px oklch(0.7 0.26 320 / 80%))",
+                filter: "drop-shadow(0 0 8px oklch(0.7 0.26 25 / 80%))",
               }}
             />
           </svg>
