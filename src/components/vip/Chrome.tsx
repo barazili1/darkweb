@@ -9,7 +9,7 @@ export function DragonMark({ className, size = 40 }: { className?: string; size?
       alt="DARK WEB"
       width={size}
       height={size}
-      className={cn("drop-shadow-[0_0_16px_oklch(0.7_0.26_320/90%)]", className)}
+      className={cn("drop-shadow-[0_0_16px_oklch(0.7_0.26_25/90%)]", className)}
       style={{ width: size, height: size }}
     />
   );
