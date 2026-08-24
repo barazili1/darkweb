@@ -88,30 +88,25 @@ function PlatformsPage() {
           </p>
         </section>
 
-        {/* Platform cards */}
-        <section className="mt-7 grid grid-cols-2 gap-3.5 px-4">
+        {/* Platform cards — stacked */}
+        <section className="mt-7 flex flex-col gap-3.5 px-4">
           {(Object.keys(PLATFORMS) as PlatformId[]).map((id, i) => {
             const p = PLATFORMS[id];
             return (
               <button
                 key={id}
                 onClick={() => choose(id)}
-                className="card-elite sheen-on-hover animate-rise group relative flex flex-col items-center rounded-[30px] px-3 pb-3.5 pt-7 text-center transition-all duration-500 hover:-translate-y-2 hover:border-primary/70 hover:shadow-[var(--glow-lg)] active:scale-[0.97]"
+                className="card-elite sheen-on-hover animate-rise group relative flex items-center gap-4 rounded-[28px] p-4 text-right transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/70 hover:shadow-[var(--glow-lg)] active:scale-[0.98]"
                 style={{ animationDelay: `${i * 130}ms` }}
               >
-                {/* index chip */}
-                <span className="absolute right-3.5 top-3.5 text-[9px] font-bold tracking-[0.25em] text-muted-foreground/50">
-                  0{i + 1}
-                </span>
-
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -top-14 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full opacity-25 blur-3xl transition-opacity duration-500 group-hover:opacity-60"
+                  className="pointer-events-none absolute -right-10 -top-14 h-36 w-36 rounded-full opacity-25 blur-3xl transition-opacity duration-500 group-hover:opacity-60"
                   style={{ background: p.accent }}
                 />
 
                 {/* logo medallion */}
-                <div className="relative flex h-[74px] w-[74px] items-center justify-center">
+                <div className="relative flex h-[68px] w-[68px] shrink-0 items-center justify-center">
                   <span
                     aria-hidden
                     className="absolute inset-0 rounded-full border"
@@ -129,35 +124,40 @@ function PlatformsPage() {
                     loading="lazy"
                     width={512}
                     height={512}
-                    className="relative h-11 w-11 rounded-lg object-contain drop-shadow-[0_0_18px_var(--primary-glow)] transition-transform duration-500 group-hover:scale-110"
+                    className="relative h-10 w-10 rounded-lg object-contain drop-shadow-[0_0_18px_var(--primary-glow)] transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
 
-                <h3 className="mt-4 text-[17px] font-extrabold leading-none tracking-wide text-foreground">
-                  {p.name}
-                </h3>
-                <span
-                  className="mt-2 inline-block rounded-full px-2.5 py-0.5 text-[8.5px] font-extrabold tracking-[0.3em]"
-                  style={{ color: p.accent, background: `${p.accent}1f` }}
-                >
-                  {p.short}
-                </span>
-                <p className="mt-2.5 line-clamp-2 text-[10px] leading-relaxed text-muted-foreground">
-                  {p.tagline}
-                </p>
+                {/* text block */}
+                <div className="relative min-w-0 flex-1">
+                  <div className="flex items-center justify-end gap-2">
+                    <span
+                      className="rounded-full px-2 py-0.5 text-[8px] font-extrabold tracking-[0.3em]"
+                      style={{ color: p.accent, background: `${p.accent}1f` }}
+                    >
+                      {p.short}
+                    </span>
+                    <h3 className="truncate text-[18px] font-extrabold leading-none tracking-wide text-foreground">
+                      {p.name}
+                    </h3>
+                  </div>
+                  <p className="mt-1.5 truncate text-[10.5px] text-muted-foreground">
+                    {p.tagline}
+                  </p>
+                  <span className="hairline my-2.5 block w-full" />
+                  <span className="flex items-center justify-end gap-1 text-[9px] text-muted-foreground/80">
+                    سحب فوري · موثوقة <ShieldCheck className="h-3 w-3 text-primary" />
+                  </span>
+                </div>
 
-                <span className="hairline my-3.5 w-full" />
-
-                <span className="flex items-center justify-center gap-1 text-[9px] text-muted-foreground/80">
-                  <ShieldCheck className="h-3 w-3 text-primary" /> سحب فوري
-                </span>
-
-                <span className="mt-3 flex w-full items-center justify-center gap-1 rounded-2xl border border-primary/45 py-2.5 text-[10px] font-extrabold tracking-[0.2em] text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[var(--glow-md)]">
-                  اتصال <ChevronLeft className="h-3 w-3" />
+                {/* action */}
+                <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-primary/45 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[var(--glow-md)]">
+                  <ChevronLeft className="h-4 w-4" />
                 </span>
               </button>
             );
           })}
+
         </section>
 
         {/* Stats — elegant single strip */}
