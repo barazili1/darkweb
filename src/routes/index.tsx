@@ -122,11 +122,11 @@ function Splash() {
         </div>
 
         {/* wordmark */}
-        <div className="mt-10 flex items-end gap-[3px]" style={{ perspective: 600 }}>
+        <div dir="ltr" className="mt-10 flex items-end gap-[3px]" style={{ perspective: 600 }}>
           {WORD.map((ch, i) => (
             <span
               key={`${ch}-${i}`}
-              className="animate-letter text-shimmer text-[1.45rem] font-extrabold leading-none"
+              className="animate-letter text-[1.45rem] font-extrabold leading-none text-foreground drop-shadow-[0_0_14px_var(--primary-glow)]"
               style={{ animationDelay: `${120 + i * 55}ms` }}
             >
               {ch}
