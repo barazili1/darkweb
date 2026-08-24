@@ -9,7 +9,7 @@ export function DragonMark({ className, size = 40 }: { className?: string; size?
       alt="DARK WEB"
       width={size}
       height={size}
-      className={cn("drop-shadow-[0_0_16px_oklch(0.7_0.26_320/90%)]", className)}
+      className={cn("drop-shadow-[0_0_16px_oklch(0.7_0.26_25/90%)]", className)}
       style={{ width: size, height: size }}
     />
   );
@@ -102,7 +102,7 @@ export function Particles() {
           const dy = (a.y - b.y) * h;
           const d = Math.hypot(dx, dy);
           if (d < 120) {
-            ctx.strokeStyle = `rgba(200,90,240,${(1 - d / 120) * 0.28})`;
+            ctx.strokeStyle = `rgba(255,45,45,${(1 - d / 120) * 0.28})`;
             ctx.lineWidth = 0.7;
             ctx.beginPath();
             ctx.moveTo(a.x * w, a.y * h);
@@ -112,8 +112,8 @@ export function Particles() {
         }
       }
       ctx.shadowBlur = 8;
-      ctx.shadowColor = "rgba(210,110,255,0.9)";
-      ctx.fillStyle = "rgba(220,140,255,0.85)";
+      ctx.shadowColor = "rgba(255,60,60,0.9)";
+      ctx.fillStyle = "rgba(255,90,80,0.9)";
       for (const p of pts) {
         ctx.beginPath();
         ctx.arc(p.x * w, p.y * h, p.r, 0, Math.PI * 2);

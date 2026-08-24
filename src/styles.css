@@ -39,40 +39,40 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.07 0.02 320);
-  --foreground: oklch(0.97 0.01 320);
-  --card: oklch(0.14 0.05 320 / 35%);
-  --card-foreground: oklch(0.97 0.01 320);
-  --popover: oklch(0.16 0.04 320);
-  --popover-foreground: oklch(0.97 0.01 320);
-  --primary: oklch(0.62 0.24 320);
+  --background: oklch(0.07 0.02 25);
+  --foreground: oklch(0.97 0.01 25);
+  --card: oklch(0.14 0.05 25 / 35%);
+  --card-foreground: oklch(0.97 0.01 25);
+  --popover: oklch(0.16 0.04 25);
+  --popover-foreground: oklch(0.97 0.01 25);
+  --primary: oklch(0.62 0.24 25);
   --primary-foreground: oklch(0.99 0 0);
-  --primary-glow: oklch(0.72 0.2 325);
-  --secondary: oklch(0.2 0.06 320 / 45%);
-  --secondary-foreground: oklch(0.95 0.01 320);
-  --muted: oklch(0.24 0.05 320);
-  --muted-foreground: oklch(0.75 0.05 322);
-  --accent: oklch(0.3 0.09 322);
-  --accent-foreground: oklch(0.97 0.01 320);
+  --primary-glow: oklch(0.72 0.2 25);
+  --secondary: oklch(0.2 0.06 25 / 45%);
+  --secondary-foreground: oklch(0.95 0.01 25);
+  --muted: oklch(0.24 0.05 25);
+  --muted-foreground: oklch(0.75 0.05 25);
+  --accent: oklch(0.3 0.09 25);
+  --accent-foreground: oklch(0.97 0.01 25);
   --success: oklch(0.72 0.19 150);
   --gold: oklch(0.82 0.16 82);
   --destructive: oklch(0.62 0.24 22);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.65 0.24 320 / 32%);
-  --input: oklch(0.65 0.24 320 / 45%);
-  --ring: oklch(0.65 0.24 320);
+  --border: oklch(0.65 0.24 25 / 32%);
+  --input: oklch(0.65 0.24 25 / 45%);
+  --ring: oklch(0.65 0.24 25);
 
-  --gradient-primary: linear-gradient(135deg, oklch(0.5 0.26 318), oklch(0.7 0.21 330));
+  --gradient-primary: linear-gradient(135deg, oklch(0.5 0.26 25), oklch(0.7 0.21 25));
   --gradient-page: radial-gradient(
       900px 520px at 50% -8%,
-      oklch(0.55 0.25 320 / 40%),
+      oklch(0.55 0.25 25 / 40%),
       transparent 70%
     ),
-    radial-gradient(700px 500px at 100% 100%, oklch(0.45 0.2 330 / 25%), transparent 70%),
-    linear-gradient(180deg, oklch(0.08 0.03 320), oklch(0.04 0.02 320) 60%, oklch(0.02 0.01 320));
-  --glow-sm: 0 0 14px oklch(0.65 0.26 320 / 45%);
-  --glow-md: 0 0 30px oklch(0.65 0.26 320 / 50%);
-  --glow-lg: 0 0 60px oklch(0.65 0.26 320 / 55%);
+    radial-gradient(700px 500px at 100% 100%, oklch(0.45 0.2 25 / 25%), transparent 70%),
+    linear-gradient(180deg, oklch(0.08 0.03 25), oklch(0.04 0.02 25) 60%, oklch(0.02 0.01 25));
+  --glow-sm: 0 0 14px oklch(0.65 0.26 25 / 45%);
+  --glow-md: 0 0 30px oklch(0.65 0.26 25 / 50%);
+  --glow-lg: 0 0 60px oklch(0.65 0.26 25 / 55%);
 }
 
 
@@ -103,13 +103,13 @@
 
 @utility neon-text {
   text-shadow:
-    0 0 10px oklch(0.68 0.26 320 / 45%),
-    0 0 30px oklch(0.68 0.26 320 / 30%);
+    0 0 10px oklch(0.68 0.26 25 / 45%),
+    0 0 30px oklch(0.68 0.26 25 / 30%);
 }
 
 @utility neon-border {
   box-shadow:
-    0 0 0 1px oklch(0.68 0.26 320 / 45%),
+    0 0 0 1px oklch(0.68 0.26 25 / 45%),
     var(--glow-md);
 }
 
@@ -196,9 +196,9 @@
       linear-gradient(
           90deg,
           transparent,
-          oklch(0.68 0.26 320 / 45%),
+          oklch(0.68 0.26 25 / 45%),
           transparent,
-          oklch(0.68 0.26 320 / 45%),
+          oklch(0.68 0.26 25 / 45%),
           transparent
         )
         border-box;
@@ -260,10 +260,10 @@
 @utility text-shimmer {
   background-image: linear-gradient(
     100deg,
-    oklch(0.98 0.01 320) 20%,
-    oklch(0.72 0.26 320) 40%,
-    oklch(0.99 0.02 330) 55%,
-    oklch(0.98 0.01 320) 75%
+    oklch(0.98 0.01 25) 20%,
+    oklch(0.72 0.26 25) 40%,
+    oklch(0.99 0.02 25) 55%,
+    oklch(0.98 0.01 25) 75%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
@@ -276,10 +276,10 @@
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    oklch(0.7 0.26 320 / 85%) 60deg,
+    oklch(0.7 0.26 25 / 85%) 60deg,
     transparent 140deg,
     transparent 200deg,
-    oklch(0.72 0.2 330 / 70%) 260deg,
+    oklch(0.72 0.2 25 / 70%) 260deg,
     transparent 330deg
   );
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
@@ -289,12 +289,12 @@
 @utility card-elite {
   position: relative;
   background:
-    linear-gradient(180deg, oklch(0.7 0.26 320 / 9%), transparent 55%);
+    linear-gradient(180deg, oklch(0.7 0.26 25 / 9%), transparent 55%);
   backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid oklch(0.68 0.26 320 / 28%);
+  border: 1px solid oklch(0.68 0.26 25 / 28%);
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 8%),
-    0 18px 45px -25px oklch(0.6 0.26 320 / 70%);
+    0 18px 45px -25px oklch(0.6 0.26 25 / 70%);
 }
 
 /* ── v6 elite primitives ─────────────────────────────── */
@@ -346,6 +346,6 @@
 }
 
 @utility hairline {
-  background: linear-gradient(90deg, transparent, oklch(0.72 0.22 320 / 55%), transparent);
+  background: linear-gradient(90deg, transparent, oklch(0.72 0.22 25 / 55%), transparent);
   height: 1px;
 }

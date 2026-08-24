@@ -185,7 +185,7 @@ function ConditionsPage() {
                 style={
                   i < doneCount
                     ? { backgroundImage: "var(--gradient-primary)", boxShadow: "var(--glow-sm)" }
-                    : { background: "oklch(0.7 0.2 320 / 15%)" }
+                    : { background: "oklch(0.7 0.2 25 / 15%)" }
                 }
               />
             ))}
