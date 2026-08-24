@@ -5,12 +5,12 @@ import { DragonMark, Particles } from "@/components/vip/Chrome";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PROFESSOR OFFICIAL — أداة كشف لعبة التفاحة" },
+      { title: "DARK WEB — أداة كشف لعبة التفاحة" },
       {
         name: "description",
-        content: "منصة PROFESSOR OFFICIAL لكشف مربعات لعبة التفاحة على 1XBET و GREENBET بتفعيل VIP.",
+        content: "منصة DARK WEB لكشف مربعات لعبة التفاحة على 1XBET و GREENBET بتفعيل VIP.",
       },
-      { property: "og:title", content: "PROFESSOR OFFICIAL" },
+      { property: "og:title", content: "DARK WEB" },
       { property: "og:description", content: "تفعيل VIP وكشف لعبة التفاحة بأناقة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -26,7 +26,7 @@ const PHASES = [
   "جاهز للانطلاق",
 ];
 
-const WORD = "PROFESSOR".split("");
+const WORD = "DARK".split("");
 
 function Splash() {
   const navigate = useNavigate();

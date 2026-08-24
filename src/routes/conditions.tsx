@@ -14,12 +14,12 @@ import { PLATFORMS, getPlatform, saveUserId, type PlatformId } from "@/lib/sessi
 export const Route = createFileRoute("/conditions")({
   head: () => ({
     meta: [
-      { title: "شروط التفعيل VIP — PROFESSOR OFFICIAL" },
+      { title: "شروط التفعيل VIP — DARK WEB" },
       {
         name: "description",
         content: "أكمل شروط التفعيل واختر لعبتك: Crash أو Apple of Fortune.",
       },
-      { property: "og:title", content: "شروط التفعيل VIP — PROFESSOR OFFICIAL" },
+      { property: "og:title", content: "شروط التفعيل VIP — DARK WEB" },
       { property: "og:description", content: "خطوات تفعيل حساب VIP واختيار اللعبة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -403,7 +403,7 @@ function ConditionsPage() {
             <span className="ring-conic absolute inset-6 rounded-full [animation:spin-slow_9s_linear_infinite_reverse]" />
             <DragonMark size={78} className="animate-breathe" />
           </div>
-          <p className="text-shimmer text-sm font-extrabold tracking-[0.3em]">PROFESSOR OFFICIAL</p>
+          <p className="text-shimmer text-sm font-extrabold tracking-[0.3em]">DARK WEB</p>
           <p className="text-xs tracking-widest text-muted-foreground">جارٍ تفعيل الحساب VIP...</p>
         </div>
       )}

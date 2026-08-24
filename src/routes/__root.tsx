@@ -77,11 +77,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PROFESSOR OFFICIAL" },
-      { name: "description", content: "منصة PROFESSOR OFFICIAL للتفعيل وكشف لعبة التفاحة." },
+      { title: "DARK WEB" },
+      { name: "description", content: "منصة DARK WEB للتفعيل وكشف لعبة التفاحة." },
       
-      { property: "og:title", content: "PROFESSOR OFFICIAL" },
-      { property: "og:description", content: "منصة PROFESSOR OFFICIAL للتفعيل وكشف لعبة التفاحة." },
+      { property: "og:title", content: "DARK WEB" },
+      { property: "og:description", content: "منصة DARK WEB للتفعيل وكشف لعبة التفاحة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
