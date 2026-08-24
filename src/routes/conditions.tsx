@@ -129,7 +129,7 @@ function ConditionsPage() {
   const ready = !!id.trim() && !!game;
 
   const copy = () => {
-    navigator.clipboard?.writeText("A77N");
+    navigator.clipboard?.writeText(p.promo);
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
   };
@@ -187,10 +187,14 @@ function ConditionsPage() {
               title="تحميل المنصة"
               desc={`قم بتحميل وتثبيت التطبيق الرسمي لمنصة ${p.name} على هاتفك.`}
             >
-              <div className="flex items-center justify-end gap-2 rounded-xl border border-primary/25 px-3 py-2">
-                <span className="text-[10px] text-muted-foreground">Dragon VIP × {p.name}</span>
-                <DragonMark size={20} />
-              </div>
+              <a
+                href={p.link}
+                target="_blank"
+                rel="noreferrer"
+                className="gradient-primary flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
+              >
+                تحميل {p.name} <ChevronLeft className="h-3.5 w-3.5" />
+              </a>
             </Step>
 
             <Step
@@ -223,7 +227,7 @@ function ConditionsPage() {
                 className="flex w-full items-center justify-between gap-3 rounded-xl border border-primary/40 px-3 py-2.5 transition-colors hover:bg-primary/10"
               >
                 <span className="neon-text text-lg font-extrabold tracking-[0.35em] text-primary">
-                  A77N
+                  {p.promo}
                 </span>
                 <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
                   {copied ? "تم النسخ" : "نسخ"}
