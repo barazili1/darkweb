@@ -214,3 +214,85 @@
     animation: border-run 6s linear infinite;
   }
 }
+
+/* ── v5 redesign primitives ───────────────────────────── */
+@keyframes shimmer-x {
+  0% { background-position: 200% 50%; }
+  100% { background-position: -200% 50%; }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scan-y {
+  0% { transform: translateY(-100%); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateY(700%); opacity: 0; }
+}
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(26px) scale(0.97); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@utility animate-rise {
+  animation: rise-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+@utility animate-scan {
+  animation: scan-y 3.6s ease-in-out infinite;
+}
+
+@utility animate-marquee {
+  animation: marquee-x 26s linear infinite;
+}
+
+@utility text-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    oklch(0.98 0.01 320) 20%,
+    oklch(0.72 0.26 320) 40%,
+    oklch(0.99 0.02 330) 55%,
+    oklch(0.98 0.01 320) 75%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-x 5s linear infinite;
+}
+
+@utility ring-conic {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    oklch(0.7 0.26 320 / 85%) 60deg,
+    transparent 140deg,
+    transparent 200deg,
+    oklch(0.72 0.2 330 / 70%) 260deg,
+    transparent 330deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+}
+
+@utility card-elite {
+  position: relative;
+  background:
+    linear-gradient(180deg, oklch(0.7 0.26 320 / 9%), transparent 55%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid oklch(0.68 0.26 320 / 28%);
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 8%),
+    0 18px 45px -25px oklch(0.6 0.26 320 / 70%);
+}

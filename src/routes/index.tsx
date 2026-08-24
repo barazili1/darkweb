@@ -52,71 +52,87 @@ function Splash() {
 
   return (
     <main
-      className={`page-bg screen-frame relative flex min-h-screen flex-col items-center justify-between overflow-hidden py-14 transition-opacity duration-700 ${
-        leaving ? "scale-105 opacity-0" : "opacity-100"
+      className={`page-bg screen-frame relative flex min-h-screen flex-col items-center justify-between overflow-hidden px-6 py-12 transition-all duration-700 ${
+        leaving ? "scale-[1.06] opacity-0 blur-sm" : "opacity-100"
       }`}
     >
       <Particles />
 
-      {/* top badge */}
-      <div className="animate-fade-up relative z-10 flex flex-col items-center gap-2">
-        <span className="rounded-full border border-primary/40 bg-primary/10 px-4 py-1 text-[9px] font-bold tracking-[0.45em] text-primary">
-          PREMIUM ACCESS
+      {/* header rail */}
+      <div className="animate-rise relative z-10 flex w-full max-w-sm items-center justify-between">
+        <span className="h-px flex-1 bg-gradient-to-l from-primary/50 to-transparent" />
+        <span className="mx-3 rounded-full border border-primary/35 px-3 py-1 text-[8px] font-bold tracking-[0.5em] text-primary/90">
+          PREMIUM
         </span>
-        <span className="text-[8px] tracking-[0.5em] text-muted-foreground/70">V 4.0 · 2026</span>
+        <span className="h-px flex-1 bg-gradient-to-r from-primary/50 to-transparent" />
       </div>
 
-      {/* core */}
-      <div className="relative z-10 flex flex-col items-center px-8 text-center">
-        <div className="animate-glow-pulse pointer-events-none absolute h-72 w-72 rounded-full bg-primary/25 blur-[120px]" />
+      {/* core emblem */}
+      <div className="relative z-10 flex flex-col items-center text-center">
+        <div className="animate-glow-pulse pointer-events-none absolute h-80 w-80 rounded-full bg-primary/20 blur-[130px]" />
 
-        <div className="relative flex h-48 w-48 items-center justify-center">
-          {/* rotating rings */}
-          <span className="absolute inset-0 animate-spin rounded-[38%] border border-primary/40 [animation-duration:14s]" />
-          <span className="absolute inset-3 animate-spin rounded-[42%] border border-primary-glow/40 [animation-direction:reverse] [animation-duration:9s]" />
-          <span className="absolute inset-0 animate-spin rounded-full border border-transparent border-t-primary-glow [animation-duration:3.5s]" />
-          <DragonMark size={118} className="relative" />
+        <div className="relative flex h-52 w-52 items-center justify-center">
+          <span className="ring-conic animate-spin-slow absolute inset-0 rounded-full" />
+          <span className="ring-conic absolute inset-6 rounded-full [animation:spin-slow_11s_linear_infinite_reverse]" />
+          <span className="absolute inset-11 rounded-full border border-primary/25" />
+          <span className="absolute inset-11 overflow-hidden rounded-full">
+            <span className="animate-scan block h-3 w-full bg-gradient-to-b from-transparent via-primary/60 to-transparent" />
+          </span>
+          <DragonMark size={112} className="relative animate-rise" />
         </div>
 
-        <h1 className="neon-text mt-8 text-[1.35rem] font-extrabold leading-none tracking-[0.22em] text-foreground">
+        <h1 className="text-shimmer mt-9 text-[1.6rem] font-extrabold leading-none tracking-[0.16em]">
           PROFESSOR
         </h1>
-        <div className="mt-2 flex items-center gap-3">
-          <span className="h-px w-8 bg-gradient-to-l from-primary to-transparent" />
-          <span className="text-xs font-bold tracking-[0.42em] text-primary">OFFICIAL</span>
-          <span className="h-px w-8 bg-gradient-to-r from-primary to-transparent" />
+        <div className="mt-3 flex items-center gap-3">
+          <span className="h-px w-10 bg-gradient-to-l from-primary to-transparent" />
+          <span className="text-[11px] font-bold tracking-[0.5em] text-primary">OFFICIAL</span>
+          <span className="h-px w-10 bg-gradient-to-r from-primary to-transparent" />
         </div>
+        <p className="mt-3 text-[10px] tracking-[0.32em] text-muted-foreground/70">
+          V 5.0 · VIP DETECTION SUITE
+        </p>
       </div>
 
-      {/* progress block */}
-      <div className="relative z-10 w-4/5 max-w-xs">
-        <div className="glass mb-4 space-y-1.5 rounded-2xl px-3 py-2.5">
+      {/* phases + progress */}
+      <div className="relative z-10 w-full max-w-sm">
+        <div className="mb-5 grid grid-cols-2 gap-2">
           {PHASES.map((ph, i) => {
             const Icon = ph.icon;
             const state = i < activePhase ? "done" : i === activePhase ? "now" : "idle";
             return (
-              <p
+              <div
                 key={ph.label}
-                className={`flex items-center gap-2 text-[10px] transition-all duration-500 ${
+                className={`card-elite flex items-center gap-2 rounded-2xl px-3 py-2.5 transition-all duration-500 ${
                   state === "idle"
-                    ? "text-muted-foreground/40"
+                    ? "opacity-35"
                     : state === "now"
-                      ? "text-primary"
-                      : "text-success"
+                      ? "-translate-y-0.5 shadow-[var(--glow-sm)]"
+                      : "opacity-90"
                 }`}
               >
-                <Icon className={`h-3 w-3 ${state === "now" ? "animate-glow-pulse" : ""}`} />
-                {ph.label}
-              </p>
+                <Icon
+                  className={`h-3.5 w-3.5 shrink-0 ${
+                    state === "done"
+                      ? "text-success"
+                      : state === "now"
+                        ? "animate-glow-pulse text-primary"
+                        : "text-muted-foreground"
+                  }`}
+                />
+                <span className="text-[9.5px] leading-tight text-foreground/85">{ph.label}</span>
+              </div>
             );
           })}
         </div>
 
-        <div className="mb-1.5 flex items-center justify-between text-[9px] tracking-[0.3em] text-muted-foreground">
-          <span className="neon-text font-bold text-primary">{Math.floor(progress)}%</span>
+        <div className="mb-2 flex items-center justify-between text-[9px] tracking-[0.3em] text-muted-foreground">
+          <span className="neon-text text-sm font-extrabold text-primary">
+            {Math.floor(progress)}%
+          </span>
           <span>LOADING</span>
         </div>
-        <div className="relative h-[5px] w-full overflow-hidden rounded-full bg-secondary/70">
+        <div className="relative h-[3px] w-full overflow-hidden rounded-full bg-secondary/60">
           <div
             className="h-full rounded-full transition-[width] duration-200 ease-out"
             style={{
@@ -125,13 +141,8 @@ function Splash() {
               boxShadow: "var(--glow-md)",
             }}
           />
-          <div className="pointer-events-none absolute inset-0 flex justify-between px-[12%]">
-            {[0, 1, 2].map((i) => (
-              <span key={i} className="h-full w-px bg-background/70" />
-            ))}
-          </div>
         </div>
-        <p className="mt-6 text-center text-[9px] tracking-[0.4em] text-muted-foreground/70">
+        <p className="mt-6 text-center text-[9px] tracking-[0.42em] text-muted-foreground/60">
           SECURE • ENCRYPTED • VIP
         </p>
       </div>
