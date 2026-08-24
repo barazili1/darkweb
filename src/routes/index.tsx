@@ -135,7 +135,7 @@ function Splash() {
         </div>
         <div className="mt-3.5 flex w-full max-w-[240px] items-center gap-3">
           <span className="hairline flex-1" />
-          <span className="text-[10px] font-bold tracking-[0.55em] text-primary">OFFICIAL</span>
+          <span className="text-[10px] font-bold tracking-[0.55em] text-primary">WEB</span>
           <span className="hairline flex-1" />
         </div>
       </div>

@@ -6,7 +6,7 @@ export function DragonMark({ className, size = 40 }: { className?: string; size?
   return (
     <img
       src={logo}
-      alt="Dragon VIP"
+      alt="DARK WEB"
       width={size}
       height={size}
       className={cn("drop-shadow-[0_0_16px_oklch(0.7_0.26_320/90%)]", className)}
