@@ -1,6 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Lock, ShieldCheck, Zap } from "lucide-react";
 import { DragonMark, Particles } from "@/components/vip/Chrome";
 
 export const Route = createFileRoute("/")({
@@ -21,11 +20,13 @@ export const Route = createFileRoute("/")({
 });
 
 const PHASES = [
-  { label: "تهيئة النظام الآمن", icon: ShieldCheck },
-  { label: "تشفير الاتصال بالسيرفر", icon: Lock },
-  { label: "تحميل خوارزمية الكشف", icon: Zap },
-  { label: "جاهز للانطلاق", icon: ShieldCheck },
+  "تهيئة النظام الآمن",
+  "تشفير الاتصال بالسيرفر",
+  "تحميل خوارزمية الكشف",
+  "جاهز للانطلاق",
 ];
+
+const WORD = "PROFESSOR".split("");
 
 function Splash() {
   const navigate = useNavigate();
@@ -48,93 +49,108 @@ function Splash() {
     return undefined;
   }, [progress, navigate]);
 
-  const activePhase = Math.min(PHASES.length - 1, Math.floor(progress / 26));
+  const phase = PHASES[Math.min(PHASES.length - 1, Math.floor(progress / 26))]!;
+  const R = 78;
+  const C = 2 * Math.PI * R;
 
   return (
     <main
-      className={`page-bg screen-frame relative flex min-h-screen flex-col items-center justify-between overflow-hidden px-6 py-12 transition-all duration-700 ${
-        leaving ? "scale-[1.06] opacity-0 blur-sm" : "opacity-100"
+      className={`page-bg relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-8 transition-all duration-700 ${
+        leaving ? "scale-[1.08] opacity-0 blur-md" : "opacity-100"
       }`}
     >
       <Particles />
 
-      {/* header rail */}
-      <div className="animate-rise relative z-10 flex w-full max-w-sm items-center justify-between">
-        <span className="h-px flex-1 bg-gradient-to-l from-primary/50 to-transparent" />
-        <span className="mx-3 rounded-full border border-primary/35 px-3 py-1 text-[8px] font-bold tracking-[0.5em] text-primary/90">
-          PREMIUM
-        </span>
-        <span className="h-px flex-1 bg-gradient-to-r from-primary/50 to-transparent" />
+      {/* corner brackets */}
+      {[
+        "left-5 top-5 border-l border-t",
+        "right-5 top-5 border-r border-t",
+        "left-5 bottom-5 border-b border-l",
+        "right-5 bottom-5 border-b border-r",
+      ].map((c) => (
+        <span
+          key={c}
+          aria-hidden
+          className={`pointer-events-none absolute h-10 w-10 rounded-[6px] border-primary/45 ${c}`}
+        />
+      ))}
+
+      {/* emblem + ring gauge */}
+      <div className="relative z-10 flex flex-col items-center">
+        <span className="animate-breathe pointer-events-none absolute h-72 w-72 rounded-full bg-primary/25 blur-[120px]" />
+
+        <div className="relative flex h-[196px] w-[196px] items-center justify-center">
+          <svg viewBox="0 0 196 196" className="absolute inset-0 h-full w-full -rotate-90">
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="oklch(0.55 0.26 315)" />
+                <stop offset="100%" stopColor="oklch(0.78 0.2 330)" />
+              </linearGradient>
+            </defs>
+            <circle
+              cx="98"
+              cy="98"
+              r={R}
+              fill="none"
+              stroke="oklch(0.7 0.2 320 / 12%)"
+              strokeWidth="2"
+            />
+            <circle
+              cx="98"
+              cy="98"
+              r={R}
+              fill="none"
+              stroke="url(#gaugeGrad)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeDasharray={C}
+              strokeDashoffset={C - (C * progress) / 100}
+              style={{
+                transition: "stroke-dashoffset 200ms linear",
+                filter: "drop-shadow(0 0 8px oklch(0.7 0.26 320 / 80%))",
+              }}
+            />
+          </svg>
+
+          {/* orbiting satellite */}
+          <span className="animate-orbit absolute inset-0">
+            <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-primary-glow shadow-[var(--glow-md)]" />
+          </span>
+          <span className="absolute inset-8 rounded-full border border-dashed border-primary/20" />
+
+          <DragonMark size={104} className="relative animate-rise" />
+        </div>
+
+        {/* wordmark */}
+        <div className="mt-10 flex items-end gap-[3px]" style={{ perspective: 600 }}>
+          {WORD.map((ch, i) => (
+            <span
+              key={`${ch}-${i}`}
+              className="animate-letter text-shimmer text-[1.45rem] font-extrabold leading-none"
+              style={{ animationDelay: `${120 + i * 55}ms` }}
+            >
+              {ch}
+            </span>
+          ))}
+        </div>
+        <div className="mt-3.5 flex w-full max-w-[240px] items-center gap-3">
+          <span className="hairline flex-1" />
+          <span className="text-[10px] font-bold tracking-[0.55em] text-primary">OFFICIAL</span>
+          <span className="hairline flex-1" />
+        </div>
       </div>
 
-      {/* core emblem */}
-      <div className="relative z-10 flex flex-col items-center text-center">
-        <div className="animate-glow-pulse pointer-events-none absolute h-80 w-80 rounded-full bg-primary/20 blur-[130px]" />
-
-        <div className="relative flex h-52 w-52 items-center justify-center">
-          <span className="ring-conic animate-spin-slow absolute inset-0 rounded-full" />
-          <span className="ring-conic absolute inset-6 rounded-full [animation:spin-slow_11s_linear_infinite_reverse]" />
-          <span className="absolute inset-11 rounded-full border border-primary/25" />
-          <span className="absolute inset-11 overflow-hidden rounded-full">
-            <span className="animate-scan block h-3 w-full bg-gradient-to-b from-transparent via-primary/60 to-transparent" />
-          </span>
-          <DragonMark size={112} className="relative animate-rise" />
-        </div>
-
-        <h1 className="text-shimmer mt-9 text-[1.6rem] font-extrabold leading-none tracking-[0.16em]">
-          PROFESSOR
-        </h1>
-        <div className="mt-3 flex items-center gap-3">
-          <span className="h-px w-10 bg-gradient-to-l from-primary to-transparent" />
-          <span className="text-[11px] font-bold tracking-[0.5em] text-primary">OFFICIAL</span>
-          <span className="h-px w-10 bg-gradient-to-r from-primary to-transparent" />
-        </div>
-        <p className="mt-3 text-[10px] tracking-[0.32em] text-muted-foreground/70">
-          V 5.0 · VIP DETECTION SUITE
+      {/* bottom status */}
+      <div className="absolute inset-x-0 bottom-12 z-10 flex flex-col items-center gap-3 px-10">
+        <p
+          key={phase}
+          className="animate-fade-up text-[11px] tracking-[0.18em] text-muted-foreground"
+        >
+          {phase}
         </p>
-      </div>
-
-      {/* phases + progress */}
-      <div className="relative z-10 w-full max-w-sm">
-        <div className="mb-5 grid grid-cols-2 gap-2">
-          {PHASES.map((ph, i) => {
-            const Icon = ph.icon;
-            const state = i < activePhase ? "done" : i === activePhase ? "now" : "idle";
-            return (
-              <div
-                key={ph.label}
-                className={`card-elite flex items-center gap-2 rounded-2xl px-3 py-2.5 transition-all duration-500 ${
-                  state === "idle"
-                    ? "opacity-35"
-                    : state === "now"
-                      ? "-translate-y-0.5 shadow-[var(--glow-sm)]"
-                      : "opacity-90"
-                }`}
-              >
-                <Icon
-                  className={`h-3.5 w-3.5 shrink-0 ${
-                    state === "done"
-                      ? "text-success"
-                      : state === "now"
-                        ? "animate-glow-pulse text-primary"
-                        : "text-muted-foreground"
-                  }`}
-                />
-                <span className="text-[9.5px] leading-tight text-foreground/85">{ph.label}</span>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="mb-2 flex items-center justify-between text-[9px] tracking-[0.3em] text-muted-foreground">
-          <span className="neon-text text-sm font-extrabold text-primary">
-            {Math.floor(progress)}%
-          </span>
-          <span>LOADING</span>
-        </div>
-        <div className="relative h-[3px] w-full overflow-hidden rounded-full bg-secondary/60">
+        <div className="relative h-px w-full max-w-[260px] overflow-hidden bg-primary/15">
           <div
-            className="h-full rounded-full transition-[width] duration-200 ease-out"
+            className="h-full transition-[width] duration-200 ease-out"
             style={{
               width: `${progress}%`,
               backgroundImage: "var(--gradient-primary)",
@@ -142,8 +158,9 @@ function Splash() {
             }}
           />
         </div>
-        <p className="mt-6 text-center text-[9px] tracking-[0.42em] text-muted-foreground/60">
-          SECURE • ENCRYPTED • VIP
+        <p className="text-[9px] tracking-[0.45em] text-primary/80">{Math.floor(progress)}%</p>
+        <p className="mt-1 text-[8px] tracking-[0.5em] text-muted-foreground/50">
+          SECURE · ENCRYPTED · VIP
         </p>
       </div>
     </main>
