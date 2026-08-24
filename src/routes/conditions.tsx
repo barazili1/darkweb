@@ -55,50 +55,54 @@ function Step({
   last?: boolean;
 }) {
   return (
-    <li className="animate-fade-up relative flex gap-3" style={{ animationDelay: `${delay}ms` }}>
+    <li className="animate-rise relative pr-[54px]" style={{ animationDelay: `${delay}ms` }}>
       {/* rail */}
-      <div className="relative flex w-10 shrink-0 flex-col items-center">
-        <span
-          className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full border text-[12px] font-extrabold transition-colors ${
-            done
-              ? "border-success/60 bg-success/15 text-success"
-              : "border-primary/60 bg-primary/10 text-primary shadow-[var(--glow-sm)]"
-          }`}
-        >
-          {done ? <Check className="h-4 w-4" /> : n}
-        </span>
-        {!last && (
-          <span
-            aria-hidden
-            className="absolute top-10 bottom-0 w-px"
-            style={{
-              background: "linear-gradient(180deg,var(--primary),transparent)",
-              opacity: 0.5,
-            }}
-          />
+      <span
+        className={`absolute right-0 top-1 z-10 flex h-11 w-11 items-center justify-center rounded-2xl border text-[12px] font-extrabold transition-all duration-300 ${
+          done
+            ? "border-success/60 bg-success/15 text-success"
+            : "border-primary/50 text-primary shadow-[var(--glow-sm)]"
+        }`}
+      >
+        {done ? <Check className="h-4 w-4" /> : n}
+        {!done && (
+          <span className="ring-conic animate-spin-slow absolute inset-0 rounded-2xl opacity-60" />
         )}
-      </div>
-
-      <article className="group relative mb-4 flex-1 overflow-hidden rounded-[26px] border border-primary/25 p-3.5 text-right transition-all duration-300 hover:border-primary/70 hover:shadow-[var(--glow-md)]">
+      </span>
+      {!last && (
         <span
           aria-hidden
-          className="pointer-events-none absolute -left-10 -top-10 h-24 w-24 rounded-full bg-primary/20 blur-2xl"
+          className="absolute right-[21px] top-14 bottom-0 w-px"
+          style={{ background: "linear-gradient(180deg,var(--primary),transparent)", opacity: 0.4 }}
+        />
+      )}
+
+      <article className="card-elite group mb-4 overflow-hidden rounded-[26px] p-4 text-right transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/70 hover:shadow-[var(--glow-md)]">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -left-12 -top-12 h-28 w-28 rounded-full bg-primary/20 blur-2xl"
         />
         <div className="relative flex items-start gap-3">
           <div className="min-w-0 flex-1">
-            <h2 className="neon-text text-[14px] font-extrabold text-foreground">{title}</h2>
-            <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">{desc}</p>
+            <h2 className="text-[14px] font-extrabold text-foreground">{title}</h2>
+            <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">{desc}</p>
           </div>
-          <img
-            src={image}
-            alt={title}
-            loading="lazy"
-            width={512}
-            height={512}
-            className="h-16 w-16 shrink-0 object-contain drop-shadow-[0_0_16px_var(--primary-glow)] transition-transform duration-300 group-hover:scale-110"
-          />
+          <div className="relative flex h-16 w-16 shrink-0 items-center justify-center">
+            <span
+              aria-hidden
+              className="absolute inset-0 rounded-2xl bg-primary/15 blur-md transition-opacity duration-300 group-hover:opacity-80"
+            />
+            <img
+              src={image}
+              alt={title}
+              loading="lazy"
+              width={512}
+              height={512}
+              className="relative h-14 w-14 object-contain drop-shadow-[0_0_16px_var(--primary-glow)] transition-transform duration-300 group-hover:scale-110"
+            />
+          </div>
         </div>
-        {children && <div className="relative mt-3">{children}</div>}
+        {children && <div className="relative mt-3.5">{children}</div>}
       </article>
     </li>
   );
@@ -145,22 +149,29 @@ function ConditionsPage() {
 
         {/* Hero */}
         <section className="px-4 pt-[50px]">
-          <div className="animate-fade-up relative flex items-center gap-3 overflow-hidden rounded-[28px] border border-primary/30 p-4 text-right">
+          <div className="card-elite animate-rise relative overflow-hidden rounded-[30px] p-5 text-right">
             <span
               aria-hidden
-              className="pointer-events-none absolute -right-10 -top-14 h-36 w-36 rounded-full bg-primary/25 blur-3xl"
+              className="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-primary/25 blur-3xl"
             />
-            <div className="relative min-w-0 flex-1">
-              <span className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-[9px] font-bold tracking-[0.25em] text-primary">
-                <Sparkles className="h-3 w-3" /> VIP
-              </span>
-              <h1 className="neon-text mt-1.5 text-xl font-extrabold text-foreground">
-                خطوات التفعيل
-              </h1>
-              <p className="mt-1 text-[11px] text-muted-foreground">
-                أكمل الشروط بالترتيب لتفعيل أداة {p.name}
-              </p>
-              <div className="mt-3 h-[5px] w-full overflow-hidden rounded-full bg-secondary/70">
+            <div className="relative flex items-center gap-4">
+              <div className="min-w-0 flex-1">
+                <span className="inline-flex items-center gap-1 rounded-full border border-primary/40 px-2.5 py-0.5 text-[9px] font-bold tracking-[0.3em] text-primary">
+                  <Sparkles className="h-3 w-3" /> VIP
+                </span>
+                <h1 className="text-shimmer mt-2 text-2xl font-extrabold">خطوات التفعيل</h1>
+                <p className="mt-1 text-[11px] text-muted-foreground">
+                  أكمل الشروط بالترتيب لتفعيل أداة {p.name}
+                </p>
+              </div>
+              <div className="relative flex h-[72px] w-[72px] shrink-0 items-center justify-center">
+                <span className="ring-conic animate-spin-slow absolute inset-0 rounded-full" />
+                <DragonMark size={52} className="relative animate-glow-pulse" />
+              </div>
+            </div>
+
+            <div className="relative mt-4">
+              <div className="h-[4px] w-full overflow-hidden rounded-full bg-secondary/70">
                 <div
                   className="h-full rounded-full transition-[width] duration-500"
                   style={{
@@ -170,15 +181,14 @@ function ConditionsPage() {
                   }}
                 />
               </div>
-              <p className="mt-1.5 text-[10px] tracking-[0.3em] text-muted-foreground">
+              <p className="mt-2 text-[10px] tracking-[0.3em] text-muted-foreground">
                 التقدم {progress}%
               </p>
             </div>
-            <DragonMark size={64} className="relative shrink-0 animate-glow-pulse" />
           </div>
         </section>
 
-        <section className="mt-5 px-4">
+        <section className="mt-6 px-4">
           <ul className="relative">
             <Step
               n={1}
@@ -191,7 +201,7 @@ function ConditionsPage() {
                 href={p.link}
                 target="_blank"
                 rel="noreferrer"
-                className="gradient-primary flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
+                className="gradient-primary flex items-center justify-center gap-1.5 rounded-2xl py-3 text-xs font-extrabold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
               >
                 تحميل {p.name} <ChevronLeft className="h-3.5 w-3.5" />
               </a>
@@ -208,7 +218,7 @@ function ConditionsPage() {
                 href="https://t.me/THEAGLE2"
                 target="_blank"
                 rel="noreferrer"
-                className="gradient-primary flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
+                className="gradient-primary flex items-center justify-center gap-1.5 rounded-2xl py-3 text-xs font-extrabold text-primary-foreground shadow-[var(--glow-md)] transition-transform hover:scale-[1.03]"
               >
                 انضمام الآن <ChevronLeft className="h-3.5 w-3.5" />
               </a>
@@ -224,9 +234,9 @@ function ConditionsPage() {
             >
               <button
                 onClick={copy}
-                className="flex w-full items-center justify-between gap-3 rounded-xl border border-primary/40 px-3 py-2.5 transition-colors hover:bg-primary/10"
+                className="flex w-full items-center justify-between gap-3 rounded-2xl border border-dashed border-primary/50 px-4 py-3 transition-colors hover:bg-primary/10"
               >
-                <span className="neon-text text-lg font-extrabold tracking-[0.35em] text-primary">
+                <span className="neon-text text-xl font-extrabold tracking-[0.4em] text-primary">
                   {p.promo}
                 </span>
                 <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
@@ -248,10 +258,10 @@ function ConditionsPage() {
               desc="قم بعمل إيداع أولي بقيمة 250 جنيه أو 5 دولار لتفعيل الحساب."
             >
               <div className="grid grid-cols-2 gap-2">
-                <span className="rounded-xl border border-primary/25 py-2 text-center text-[11px] font-bold text-gold">
+                <span className="rounded-2xl border border-primary/25 py-2.5 text-center text-[12px] font-extrabold text-gold">
                   250 EGP
                 </span>
-                <span className="rounded-xl border border-primary/25 py-2 text-center text-[11px] font-bold text-gold">
+                <span className="rounded-2xl border border-primary/25 py-2.5 text-center text-[12px] font-extrabold text-gold">
                   5 USD
                 </span>
               </div>
@@ -271,14 +281,14 @@ function ConditionsPage() {
                 onChange={(e) => setId(e.target.value)}
                 inputMode="numeric"
                 placeholder="مثال: 1029384756"
-                className="w-full rounded-xl border border-input bg-transparent px-3 py-2.5 text-right text-sm outline-none transition-shadow placeholder:text-muted-foreground focus:border-primary focus:shadow-[var(--glow-sm)]"
+                className="w-full rounded-2xl border border-input bg-transparent px-4 py-3 text-right text-sm tracking-widest outline-none transition-shadow placeholder:text-muted-foreground/70 focus:border-primary focus:shadow-[var(--glow-sm)]"
               />
             </Step>
           </ul>
 
           {/* Game selection */}
           <div
-            className="animate-fade-up rounded-[28px] border border-primary/30 p-4"
+            className="card-elite animate-rise rounded-[30px] p-4"
             style={{ animationDelay: "340ms" }}
           >
             <h3 className="flex items-center justify-end gap-2 text-sm font-extrabold text-foreground">
@@ -287,26 +297,31 @@ function ConditionsPage() {
             <p className="mt-1 text-right text-[11px] text-muted-foreground">
               لازم تختار لعبة واحدة لتشغيل الكاشف الخاص بها.
             </p>
-            <div className="mt-3 grid grid-cols-2 gap-2.5">
+            <div className="mt-3.5 grid grid-cols-2 gap-3">
               {GAMES.map((g) => {
                 const active = game === g.id;
                 return (
                   <button
                     key={g.id}
                     onClick={() => setGame(g.id)}
-                    className={`flex flex-col items-center gap-2 rounded-2xl border p-3 transition-all duration-300 ${
+                    className={`relative flex flex-col items-center gap-2 overflow-hidden rounded-[24px] border p-3.5 transition-all duration-300 ${
                       active
-                        ? "neon-border -translate-y-1 border-primary bg-primary/15"
-                        : "border-primary/25 hover:bg-primary/10"
+                        ? "-translate-y-1 border-primary bg-primary/10 shadow-[var(--glow-md)]"
+                        : "border-primary/25 hover:-translate-y-0.5 hover:border-primary/50"
                     }`}
                   >
+                    {active && (
+                      <span className="absolute left-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                        <Check className="h-3 w-3" />
+                      </span>
+                    )}
                     <img
                       src={g.img}
                       alt={g.name}
                       loading="lazy"
                       width={512}
                       height={512}
-                      className="h-16 w-16 object-contain drop-shadow-[0_0_12px_var(--primary-glow)]"
+                      className={`h-16 w-16 object-contain drop-shadow-[0_0_12px_var(--primary-glow)] transition-transform duration-300 ${active ? "scale-110" : ""}`}
                     />
                     <span
                       className={`text-center text-[10px] font-bold leading-tight ${active ? "text-primary" : "text-muted-foreground"}`}
@@ -326,12 +341,12 @@ function ConditionsPage() {
               setLoading(true);
             }}
             disabled={!ready}
-            className="gradient-primary mt-4 w-full rounded-2xl py-4 text-sm font-extrabold text-primary-foreground shadow-[var(--glow-lg)] transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-40 disabled:shadow-none"
+            className="gradient-primary mt-5 w-full rounded-[24px] py-4 text-sm font-extrabold tracking-wide text-primary-foreground shadow-[var(--glow-lg)] transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-40 disabled:shadow-none"
           >
             {ready ? "أكملت الشروط، ابدأ الربح" : "أكمل الـ ID واختر لعبة"}
           </button>
           {!ready && (
-            <p className="mt-2 flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground">
+            <p className="mt-2.5 flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground">
               <Lock className="h-3 w-3" /> الزر يتفعل بعد إدخال الـ ID واختيار اللعبة
             </p>
           )}
@@ -339,12 +354,13 @@ function ConditionsPage() {
       </div>
 
       {loading && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-5 bg-background/85 backdrop-blur-md">
-          <div className="relative flex h-36 w-36 items-center justify-center">
-            <span className="absolute inset-0 animate-spin rounded-full border-2 border-transparent border-l-primary-glow border-t-primary shadow-[var(--glow-md)]" />
-            <DragonMark size={82} className="animate-glow-pulse" />
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-5 bg-background/85 backdrop-blur-xl">
+          <div className="relative flex h-40 w-40 items-center justify-center">
+            <span className="ring-conic animate-spin-slow absolute inset-0 rounded-full" />
+            <span className="ring-conic absolute inset-6 rounded-full [animation:spin-slow_9s_linear_infinite_reverse]" />
+            <DragonMark size={78} className="animate-glow-pulse" />
           </div>
-          <p className="neon-text text-sm font-extrabold">PROFESSOR OFFICIAL</p>
+          <p className="text-shimmer text-sm font-extrabold tracking-[0.3em]">PROFESSOR OFFICIAL</p>
           <p className="text-xs tracking-widest text-muted-foreground">جارٍ تفعيل الحساب VIP...</p>
         </div>
       )}
