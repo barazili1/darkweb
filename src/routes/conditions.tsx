@@ -227,7 +227,7 @@ function ConditionsPage() {
                 className="flex w-full items-center justify-between gap-3 rounded-xl border border-primary/40 px-3 py-2.5 transition-colors hover:bg-primary/10"
               >
                 <span className="neon-text text-lg font-extrabold tracking-[0.35em] text-primary">
-                  A77N
+                  {p.promo}
                 </span>
                 <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
                   {copied ? "تم النسخ" : "نسخ"}
